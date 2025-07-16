@@ -1,0 +1,50 @@
+#uvt_over { position: absolute; left: 0px; top: 62px; width: 100%; bottom: 0px; }
+#uvt_box {text-align: left;  }
+#uvt_credits { margin: 0; padding: 0; letter-spacing: normal !important; text-align: left; z-index: 9001; }
+#uvt_credits a { color: #ff7f00; text-decoration: none; letter-spacing: normal !important; }
+#uvt_credits a:hover { color: #ffffff; text-decoration: underline; }
+#uvt_credits { position: fixed; top: 0px; left: 0px; height: 62px; width: 100%; overflow: hidden; background-color: #000; color: #fff; margin: 0; padding: 0; display: table-row; }
+#uvt_credits .uvt_sub { height: 60px; position: relative; display: table-cell; vertical-align: middle; font: 18px/20px 'Roboto Condensed', RC, Arial, sans-serif; padding-left: 15px; }
+#uvt_credits .uvt_img { width: 130px; }
+#uvt_credits .uvt_twitter { padding-top: 3px; }
+
+#uvt_credits img { 
+	height: 45px; border: none; 
+	position:relative;
+}
+
+#uvt_credits ul { list-style-type: none; margin: 0; padding: 0; display: block; width: 1000%; }
+#uvt_credits li { margin: 0; padding: 0 0 0 0; display: inline; }
+#uvt_credits li a { display: inline; padding: 20px 10px 20px 10px; }
+#uvt_fade { position: absolute; right: 0px; top: 0px; width: 50px; height: 100%; background: top right repeat-y url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAFCAYAAAAHQL+kAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAEFJREFUeNpi/P//PwMIMDIysgIpNiBmh2JOJMyFRCNjkBgHELPgwKwkstExMxobHTPBaCaGYQJGPTLqERoBgAADAGWEBAe0LSoWAAAAAElFTkSuQmCC); pointer-events: none; }
+#uvt_credits .uvt_mobile { display: none; }
+#uvt_credits .uvt_nomobile { display: table-cell: }
+#uvt_credits form { display: inline; margin: 0; padding: 0; }
+#uvt_credits .uvt_sub input { display: inline; color:black; padding-top: 5px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px; margin: 0 !important; height: auto; width: auto; font: 12px RC, 'Roboto Condensed', Arial; }
+#uvt_credits .uvt_sub button { background: #eee; border: 1px outset #ccc; border-radius: 5px; padding: 3px 5px; margin-left: 5px; }
+
+@media screen and (max-width: 720px) {
+
+  #uvt_credits .uvt_nomobile { display: none; }
+  #uvt_credits .uvt_mobile { display: table-cell; }
+}
+/*
+     FILE ARCHIVED ON 13:29:30 Apr 14, 2014 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 17:49:13 Jul 14, 2025.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+*/
+/*
+playback timings (ms):
+  captures_list: 0.807
+  exclusion.robots: 0.026
+  exclusion.robots.policy: 0.012
+  esindex: 0.013
+  cdx.remote: 168.502
+  LoadShardBlock: 441.456 (3)
+  PetaboxLoader3.datanode: 145.555 (4)
+  PetaboxLoader3.resolve: 361.939 (2)
+  load_resource: 174.63
+*/
