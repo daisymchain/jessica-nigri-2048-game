@@ -1,7 +1,7 @@
 {
   "name": "Jessica Nigri 2048",
   "short_name": "JN 2048",
-  "start_url": "jessica-nigri-edition-8.html",
+  "start_url": "index.html",
   "display": "standalone",
   "background_color": "#c19bea",
   "theme_color": "#ba17d1",

@@ -1,6 +1,6 @@
 const CACHE_NAME = 'jessica-nigri-2048-v1';
 const urlsToCache = [
-  'jessica-nigri-edition-8.html',
+  'index.html',
   './images/tile-2.jpg',
   './images/tile-4.jpg', // Make sure to use the correct extensions (.jpg or .gif)
   './images/tile-8.gif',
