@@ -89,6 +89,102 @@ body {
     }
 }
 
+@media screen and (max-width: 520px) {
+    /* Override fixed container width and padding for mobile */
+    .container {
+        width: auto; /* Allow container to be fluid */
+        padding: 0 10px; /* Add some side padding to the main container */
+    }
+
+    .game-container {
+        /* Calculate width based on viewport, leaving 20px margin on each side (total 40px) */
+        width: calc(100vw - 40px);
+        /* Keep it square by matching height to width */
+        height: calc(100vw - 40px);
+        margin: 20px auto; /* Re-center with some top margin */
+        /* Make padding proportional to the original mobile ratio (10px padding for 280px width) */
+        padding: calc((100vw - 40px) / 28);
+    }
+
+    /* Make grid cells responsive */
+    .grid-cell {
+        /* Calculate cell width: (total inner width - 3 gaps) / 4 cells */
+        width: calc((100vw - 40px - (3 * ((100vw - 40px) / 28))) / 4);
+        /* Keep grid cells square */
+        height: calc((100vw - 40px - (3 * ((100vw - 40px) / 28))) / 4);
+        /* Make margin-right proportional (same ratio as game-container padding) */
+        margin-right: calc((100vw - 40px) / 28);
+    }
+    /* Apply margin-bottom proportionally to grid rows */
+    .grid-row {
+        margin-bottom: calc((100vw - 40px) / 28);
+    }
+    /* Remove margin from the last grid row */
+    .grid-row:last-child {
+        margin-bottom: 0;
+    }
+
+    /* Make tiles responsive and adjust their positioning */
+    .tile, .tile .tile-inner {
+        /* Tile width matches grid cell width, plus 1px for visual consistency with original */
+        width: calc(((100vw - 40px - (3 * ((100vw - 40px) / 28))) / 4) + 1px);
+        /* Keep tiles square */
+        height: calc(((100vw - 40px - (3 * ((100vw - 40px) / 28))) / 4) + 1px);
+        /* Adjust line-height for vertical centering of tile text */
+        line-height: calc(((100vw - 40px - (3 * ((100vw - 40px) / 28))) / 4) + 10px);
+    }
+
+    /* Override specific tile positions with calculated translate values */
+    /* The 'step' value for translation is (calculated_cell_width + calculated_margin_right) */
+    /* We use !important to ensure these override main.css */
+    .tile-position-1-1 { transform: translate(0, 0) !important; }
+    .tile-position-1-2 { transform: translate(0, calc((((100vw - 40px - (3 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28)))) !important; }
+    .tile-position-1-3 { transform: translate(0, calc(2 * ((((100vw - 40px - (3 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))))) !important; }
+    .tile-position-1-4 { transform: translate(0, calc(3 * ((((100vw - 40px - (3 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))))) !important; }
+
+    .tile-position-2-1 { transform: translate(calc((((100vw - 40px - (3 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), 0) !important; }
+    .tile-position-2-2 { transform: translate(calc((((100vw - 40px - (3 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc((((100vw - 40px - (3 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28)))) !important; }
+    .tile-position-2-3 { transform: translate(calc((((100vw - 40px - (3 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(2 * ((((100vw - 40px - (3 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))))) !important; }
+    .tile-position-2-4 { transform: translate(calc((((100vw - 40px - (3 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(3 * ((((100vw - 40px - (3 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))))) !important; }
+
+    .tile-position-3-1 { transform: translate(calc(2 * ((((100vw - 40px - (3 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28)))), 0) !important; }
+    .tile-position-3-2 { transform: translate(calc(2 * ((((100vw - 40px - (3 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28)))), calc((((100vw - 40px - (3 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28)))) !important; }
+    .tile-position-3-3 { transform: translate(calc(2 * ((((100vw - 40px - (3 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28)))), calc(2 * ((((100vw - 40px - (3 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))))) !important; }
+    .tile-position-3-4 { transform: translate(calc(2 * ((((100vw - 40px - (3 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28)))), calc(3 * ((((100vw - 40px - (3 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))))) !important; }
+
+    .tile-position-4-1 { transform: translate(calc(3 * ((((100vw - 40px - (3 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28)))), 0) !important; }
+    .tile-position-4-2 { transform: translate(calc(3 * ((((100vw - 40px - (3 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28)))), calc((((100vw - 40px - (3 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28)))) !important; }
+    .tile-position-4-3 { transform: translate(calc(3 * ((((100vw - 40px - (3 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28)))), calc(2 * ((((100vw - 40px - (3 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))))) !important; }
+    .tile-position-4-4 { transform: translate(calc(3 * ((((100vw - 40px - (3 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28)))), calc(3 * ((((100vw - 40px - (3 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))))) !important; }
+
+    /* Adjust font sizes for tiles to scale proportionally */
+    .tile .tile-inner {
+        font-size: calc(((100vw - 40px) / 4) / 1.6);
+    }
+    .tile.tile-128 .tile-inner,
+    .tile.tile-256 .tile-inner,
+    .tile.tile-512 .tile-inner {
+        font-size: calc(((100vw - 40px) / 4) / 2);
+    }
+    .tile.tile-1024 .tile-inner,
+    .tile.tile-2048 .tile-inner {
+        font-size: calc(((100vw - 40px) / 4) / 2.5);
+    }
+    .tile.tile-super .tile-inner {
+        font-size: calc(((100vw - 40px) / 4) / 3);
+    }
+
+    /* Ensure game message font scales properly */
+    .game-container .game-message p {
+        font-size: calc((100vw - 40px) / 5);
+        height: auto;
+        line-height: 1.2;
+        margin-top: calc((100vw - 40px) / 10);
+    }
+    .game-container .game-message .lower {
+        margin-top: 0 !important;
+    }
+}
 </style>
 
   
