@@ -8,30 +8,29 @@
 <style>
 
 body {
-    margin: 0;          /* Remove any default body margins */
-    padding: 0;         /* Ensure no default body padding */
-    text-align: center; /* This helps center inline content and blocks with margin:auto */
+    margin: 0;
+    padding: 0;
+    text-align: center;
 }
 
 .game-wrapper {
-    max-width: 500px;   /* Set a maximum width for your game on larger screens */
-    margin: 20px auto;  /* THIS is the magic for horizontal centering */
-    padding: 60px 10px 0px 30px; /* INCREASE THE FIRST VALUE (TOP PADDING) SIGNIFICANTLY */
-                              /* Example: 50px top, 10px right, 0px bottom, 10px left */
-    box-sizing: border-box; /* Ensures padding is included in the max-width calculation */
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 60px 10px 0px 30px;
+    box-sizing: border-box;
 }
 
 /* Ensure specific block elements within the wrapper also have auto margins if they have fixed widths */
-.container, /* This targets your title and score area */
-.game-container /* This targets your main game board */
-{
+/* These rules apply to all screen sizes */
+.container,
+.game-container {
     margin-left: auto;
     margin-right: auto;
 }
 
 /* Specific adjustments for "How to play" if needed */
 .game-explanation {
-    text-align: center; /* Ensure text inside is centered */
+    text-align: center;
     margin-left: auto;
     margin-right: auto;
 }
@@ -41,86 +40,114 @@ body {
     margin-left: auto;
     margin-right: auto;
 }
-  
-  .tile-text {
-    display:inline-block;
+
+.tile-text {
+    display: inline-block;
     vertical-align: middle;
-  }
-  
-  /* lol !important */
-  
-  .tile-inner { background-position: center center !important; background-size: cover !important; background-repeat: no-repeat !important; }
+}
+
+/* lol !important */
+.tile-inner {
+    background-position: center center !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+}
+
+/* Your existing tile background images (make sure these are all correct from previous fixes) */
+.tile-2 .tile-inner { background-image: url(Images/tile-2.gif) !important; }
+.tile-4 .tile-inner { background-image: url(Images/tile-4.gif) !important; }
+.tile-8 .tile-inner { background-image: url(Images/tile-8.webp) !important; }
+.tile-16 .tile-inner { background-image: url(Images/tile-16.gif) !important; }
+.tile-32 .tile-inner { background-image: url(Images/tile-32.gif) !important; }
+.tile-64 .tile-inner { background-image: url(Images/tile-64.gif) !important; }
+.tile-128 .tile-inner { background-image: url(Images/tile-128.gif) !important; }
+.tile-256 .tile-inner { background-image: url(Images/tile-256.gif) !important; }
+.tile-512 .tile-inner { background-image: url(Images/tile-512.gif) !important; }
+.tile-1024 .tile-inner { background-image: url(Images/tile-1024.gif) !important; } /* Make sure this is .gif now! */
+.tile-2048 .tile-inner { background-image: url(Images/tile-2048.gif) !important; }
+
+/* Existing text/color rules if any */
+.thisistext, p, a, h1 { color: #ba17d1; }
+.game-container { background-color: #c19bea }
 
 
-    
-    .tile-2 .tile-inner {
-      background-image: url(Images/tile-2.gif) !important; 
+/* --- MEDIA QUERIES FOR RESPONSIVENESS (These should come last) --- */
+
+/* Adjustments for screens smaller than 500px (typical mobile portrait) */
+@media (max-width: 500px) {
+    .game-wrapper {
+        max-width: 100%; /* Allow it to take up full width */
+        padding: 20px 15px 0px 15px; /* Adjust padding for mobile to give some breathing room */
+        margin: 10px auto; /* Reduce top margin slightly */
     }
-  
-    
-    .tile-4 .tile-inner {
-      background-image: url(Images/tile-4.gif) !important; 
+
+    .title {
+        font-size: 30px; /* Adjust title size */
     }
-  
-    
-    .tile-8 .tile-inner {
-      background-image: url(Images/tile-8.webp) !important; 
+    .score-container,
+    .best-container {
+        font-size: 20px; /* Adjust score font size */
     }
-  
-    
-    .tile-16 .tile-inner {
-      background-image: url(Images/tile-16.gif) !important; 
+
+    /* CRITICAL: Make grid cells and tiles scale with percentages */
+    .grid-container {
+        width: 100%; /* Ensure grid container itself is fluid relative to .game-container */
+        height: auto; /* Let height adjust naturally */
+        padding: 5px; /* Example padding inside the grid container, adjust as needed */
+        box-sizing: border-box; /* Include padding in width/height calculation */
     }
-  
-    
-    .tile-32 .tile-inner {
-      background-image: url(Images/tile-32.gif) !important; 
+
+    .grid-row {
+        display: flex; /* Makes cells in a row behave like flex items for proper distribution */
+        width: 100%; /* Ensure row takes full width of grid container */
     }
-  
-    
-    .tile-64 .tile-inner {
-      background-image: url(Images/tile-64.gif) !important; 
+
+    .grid-cell {
+        width: 25%; /* Each cell is 1/4th of the row width */
+        height: 0; /* Set height to 0 to use padding-bottom for aspect ratio */
+        padding-bottom: 25%; /* This makes cells perfectly square, based on their width */
+        margin: 0; /* Remove any default margins that might cause gaps */
+        box-sizing: border-box; /* Include padding in width/height calculation */
     }
-  
-    
-    .tile-128 .tile-inner {
-      background-image: url(Images/tile-128.gif) !important; 
+
+    /* Make the tiles within the grid cells also scale */
+    .tile {
+        /* These values are often set by JS for positioning, so !important might be needed for some */
+        width: 25%; /* Tile width should match cell width */
+        height: 0; /* Use padding-bottom for height */
+        padding-bottom: 25%;
+        /* If `left` and `top` are set by JavaScript with fixed pixels, this will be tricky.
+           We'll address that if needed. For now, try to make them relative if possible. */
+        left: 0 !important; /* Attempt to reset to 0 to allow scaling from left */
+        top: 0 !important; /* Attempt to reset to 0 to allow scaling from top */
+        transform: translate(0, 0) !important; /* Reset any JS transforms */
+        position: absolute; /* Keep absolute position to layer over grid cells */
     }
-  
-    
-    .tile-256 .tile-inner {
-      background-image: url(Images/tile-256.gif) !important; 
+
+    .tile .tile-inner {
+        font-size: 40px; /* Adjust tile number font size */
+        /* Center content within the scaled tile */
+        position: absolute; /* Needed for width/height 100% */
+        width: 100%;
+        height: 100%;
+        display: flex; /* Use flexbox to center content */
+        justify-content: center; /* Horizontally center */
+        align-items: center; /* Vertically center */
     }
-  
-    
-    .tile-512 .tile-inner {
-      background-image: url(Images/tile-512.gif) !important; 
+}
+
+/* Optional: Even smaller screens, if needed */
+@media (max-width: 380px) {
+    .game-wrapper {
+        padding: 10px 5px 0px 5px;
     }
-  
-    
-    .tile-1024 .tile-inner {
-      background-image: url(Images/tile-1024.gif) !important; 
+    .title {
+        font-size: 25px;
     }
-  
-    
-    .tile-2048 .tile-inner {
-      background-image: url(Images/tile-2048.gif) !important; 
+    .tile .tile-inner {
+        font-size: 35px; /* Even smaller font for tiny screens */
     }
-  
-    
-  
-  .thisistext, p, a, h1 { color: #ba17d1; }
-  .game-container { background-color: #c19bea }
-  
-  
-  .preload, .preload img { position: absolute; top: -100px; -left: 100px; width: 1px; height: 1px; overflow: hidden; }
-  
-  #fix { 
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%; position: fixed; z-index: -1000; 
-            
-        background-color: #f9effa;
-      
-        }
+}
 
 </style>
 
@@ -250,7 +277,6 @@ $(document).keypress(function(event) {
 
   <div id="fix"></div>
 <div class="game-wrapper">
-    ```
   <div class="container">
        <h1 class="title thisistext">2048:<br>Jessica Nigri</h1>
       
