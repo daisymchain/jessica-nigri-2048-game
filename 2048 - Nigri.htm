@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>2048: Jessica Nigri Edition</title>
+  <link href="2048%20-%20Nigri_files/main.css" rel="stylesheet" type="text/css">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+  <script src="2048%20-%20Nigri_files/jquery.min.js.download"></script>
+
+<style>
+
+body {
+    margin: 0;          /* Remove any default body margins */
+    padding: 0;         /* Ensure no default body padding */
+    text-align: center; /* This helps center inline content and blocks with margin:auto */
+}
+
+.game-wrapper {
+    max-width: 500px;   /* Set a maximum width for your game on larger screens */
+    margin: 20px auto;  /* THIS is the magic for horizontal centering */
+    padding: 60px 10px 0px 30px; /* INCREASE THE FIRST VALUE (TOP PADDING) SIGNIFICANTLY */
+                              /* Example: 50px top, 10px right, 0px bottom, 10px left */
+    box-sizing: border-box; /* Ensures padding is included in the max-width calculation */
+}
+
+/* Ensure specific block elements within the wrapper also have auto margins if they have fixed widths */
+.container, /* This targets your title and score area */
+.game-container /* This targets your main game board */
+{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Specific adjustments for "How to play" if needed */
+.game-explanation {
+    text-align: center; /* Ensure text inside is centered */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* If your .game-container background isn't centering, you might need this */
+.game-container::before {
+    margin-left: auto;
+    margin-right: auto;
+}
+  
+  .tile-text {
+    display:inline-block;
+    vertical-align: middle;
+  }
+  
+  /* lol !important */
+  
+  .tile-inner { background-position: center center !important; background-size: cover !important; background-repeat: no-repeat !important; }
+
+
+    
+    .tile-2 .tile-inner {
+      background-image: url(images/tile-2.gif) !important; 
+    }
+  
+    
+    .tile-4 .tile-inner {
+      background-image: url(images/tile-4.gif) !important; 
+    }
+  
+    
+    .tile-8 .tile-inner {
+      background-image: url(images/tile-8.webp) !important; 
+    }
+  
+    
+    .tile-16 .tile-inner {
+      background-image: url(images/tile-16.gif) !important; 
+    }
+  
+    
+    .tile-32 .tile-inner {
+      background-image: url(images/tile-32.gif) !important; 
+    }
+  
+    
+    .tile-64 .tile-inner {
+      background-image: url(images/tile-64.gif) !important; 
+    }
+  
+    
+    .tile-128 .tile-inner {
+      background-image: url(images/tile-128.gif) !important; 
+    }
+  
+    
+    .tile-256 .tile-inner {
+      background-image: url(images/tile-256.gif) !important; 
+    }
+  
+    
+    .tile-512 .tile-inner {
+      background-image: url(images/tile-512.gif) !important; 
+    }
+  
+    
+    .tile-1024 .tile-inner {
+      background-image: url(images/tile-1024.jpg) !important; 
+    }
+  
+    
+    .tile-2048 .tile-inner {
+      background-image: url(images/tile-2048.gif) !important; 
+    }
+  
+    
+  
+  .thisistext, p, a, h1 { color: #ba17d1; }
+  .game-container { background-color: #c19bea }
+  
+  
+  .preload, .preload img { position: absolute; top: -100px; -left: 100px; width: 1px; height: 1px; overflow: hidden; }
+  
+  #fix { 
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; position: fixed; z-index: -1000; 
+            
+        background-color: #f9effa;
+      
+        }
+
+</style>
+
+  
+<script>
+// GLOBALS, GLOBALS, BODGE ALL THE GLOBALS
+var external_score; 
+var tile_contents = ["","","","","","","","","","","",""];
+
+var external_score; // yep, this is a bodge
+
+function tweet() {
+  // This function is intentionally left empty to prevent errors after cleanup
+}
+
+function facebook() {
+  // This function is intentionally left empty to prevent errors after cleanup
+}
+
+var sizes = [];
+function resizeTextOn(whichelement) {
+
+  if (typeof sizes[whichelement] == "undefined") {
+
+    //console.log("Performing hard maths on " + whichelement);
+
+    $(whichelement + " .tile-inner").css("display", "block");
+    $(whichelement + " .tile-text").css("display", "inline-block");
+
+    $(whichelement + " .tile-text").css("fontSize", "60px");
+
+    while ($(whichelement + " .tile-text").width()+30 > $(whichelement + " .tile-inner").width()) {
+      var newSize = (parseInt($(whichelement + " .tile-text").css("fontSize")) - 1) + "px";
+      $(whichelement + " .tile-text").css("fontSize", newSize);
+    }
+
+    if (typeof newSize == "undefined") { var newSize = "60px"; }
+
+    $(whichelement + " .tile-text").css("lineHeight", newSize);
+
+    if (parseInt(newSize) > 50) {
+      $(whichelement + " .tile-text").css("position", "relative");
+      $(whichelement + " .tile-text").css("top", "5px");
+    } else {
+      $(whichelement + " .tile-text").css("position", "relative");
+      $(whichelement + " .tile-text").css("top", "0px");
+    }
+
+    $(whichelement + " .tile-inner").css("display", "table");
+    $(whichelement + " .tile-text").css("display", "table-cell");
+
+    sizes[whichelement] = newSize;
+
+  } else {
+
+    newSize = sizes[whichelement];
+
+    $(whichelement + " .tile-text").css("fontSize", newSize);
+    $(whichelement + " .tile-text").css("lineHeight", newSize);
+
+    if (parseInt(newSize) > 50) {
+      $(whichelement + " .tile-text").css("position", "relative");
+      $(whichelement + " .tile-text").css("top", "5px");
+    } else {
+      $(whichelement + " .tile-text").css("position", "relative");
+      $(whichelement + " .tile-text").css("top", "0px");
+    }
+
+    $(whichelement + " .tile-inner").css("display", "table");
+    $(whichelement + " .tile-text").css("display", "table-cell");
+
+  }
+
+  //console.log(sizes);
+
+}
+
+$(document).keypress(function(event) {
+  if ( event.which == 61 ) {
+    $(".tile-container").empty();
+    var tile = new Tile({x:0,y:0},2);
+    HTMLActuator.prototype.addTile(tile);
+    var tile = new Tile({x:1,y:0},4);
+    HTMLActuator.prototype.addTile(tile);
+    var tile = new Tile({x:2,y:0},8);
+    HTMLActuator.prototype.addTile(tile);
+    var tile = new Tile({x:3,y:0},16);
+    HTMLActuator.prototype.addTile(tile);
+    var tile = new Tile({x:0,y:1},32);
+    HTMLActuator.prototype.addTile(tile);
+    var tile = new Tile({x:1,y:1},64);
+    HTMLActuator.prototype.addTile(tile);
+    var tile = new Tile({x:2,y:1},128);
+    HTMLActuator.prototype.addTile(tile);
+    var tile = new Tile({x:3,y:1},256);
+    HTMLActuator.prototype.addTile(tile);
+    var tile = new Tile({x:0,y:2},512);
+    HTMLActuator.prototype.addTile(tile);
+    var tile = new Tile({x:1,y:2},1024);
+    HTMLActuator.prototype.addTile(tile);
+    var tile = new Tile({x:2,y:2},2048);
+    HTMLActuator.prototype.addTile(tile);
+  }
+});
+
+</script>
+
+<style>
+@media (min-width: 800px) {
+  .sharer {
+         -moz-column-count: 2;
+         -moz-column-gap: 20px;
+         -webkit-column-count: 2;
+         -webkit-column-gap: 20px;
+         
+  }
+  .sharer a { color: #0000cc; }
+}
+@media (max-width: 800px) {
+  .sharer {
+    padding: 0 10px;
+  }
+  .sharer a { color: #0000cc; }
+}
+
+</style>
+
+  <div id="fix"></div>
+<div class="game-wrapper">
+    ```
+  <div class="container">
+       <h1 class="title thisistext">2048:<br>Jessica Nigri</h1>
+      
+      <div class="scores-container">
+        <div class="score-container">0</div>
+        <div class="best-container">0</div>
+      </div>
+    </div>
+
+    <div class="game-container">
+      <div class="game-message">
+        <p></p>
+        <div class="lower">
+	        <a class="tweet">Tweet your score</a>
+	        <a class="facebook">Share on Facebook</a>
+          <a class="retry-button">Try again</a>
+        </div>
+      </div>
+
+      <div class="grid-container">
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+      </div>
+
+      <div class="tile-container"><div class="tile tile-2 tile-position-1-4 tile-new"><div class="tile-inner" style="display: table;"><div class="tile-text" style="display: table-cell; font-size: 60px; line-height: 60px; position: relative; top: 5px;"></div></div></div><div class="tile tile-2 tile-position-3-2 tile-new"><div class="tile-inner" style="display: table;"><div class="tile-text" style="font-size: 60px; line-height: 60px; position: relative; top: 5px; display: table-cell;"></div></div></div></div>
+    </div>
+
+    <p class="game-explanation">
+      <strong class="important">How to play:</strong> Use your <strong>arrow keys</strong> to move the tiles.<br>When two identical tiles touch, they merge and become the next level of tile. Get a tile to the eleventh level to win.
+ 
+  </div>
+  
+
+  <script src="2048%20-%20Nigri_files/glom.js.download"></script>
+  <div class="preload">
+  <img src="2048%20-%20Nigri_files/k8vFtIo.jpg" class="preload"><img src="2048%20-%20Nigri_files/DF3uFPC.jpg" class="preload"><img src="2048%20-%20Nigri_files/nigri-bouncing.gif" class="preload"><img src="2048%20-%20Nigri_files/GdhI7mV.gif" class="preload"><img src="2048%20-%20Nigri_files/tumblr_mpr9b2ohKX1qgim5io1_400.gif" class="preload"><img src="2048%20-%20Nigri_files/z2LVMeK.gif" class="preload"><img src="2048%20-%20Nigri_files/Jjft7vj.gif" class="preload"><img src="2048%20-%20Nigri_files/iDJ5dDL8sSvRk.gif" class="preload"><img src="2048%20-%20Nigri_files/giphy-101.gif" class="preload"><img src="2048%20-%20Nigri_files/600full-my-profile.jpg" class="preload"><img src="2048%20-%20Nigri_files/600full-my-profile(1).jpg" class="preload">  
+	 </div>
+
+    <script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/service-worker.js')
+            .then(registration => {
+              console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            })
+            .catch(err => {
+              console.log('ServiceWorker registration failed: ', err);
+            });
+        });
+      }
+    </script>
+</body>
+</html>

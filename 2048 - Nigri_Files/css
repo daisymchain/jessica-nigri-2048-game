@@ -1,0 +1,33 @@
+@font-face {
+  font-family: 'Roboto Condensed';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto Condensed Regular'), local('RobotoCondensed-Regular'), url(https://web.archive.org/web/20140414155952im_/http://themes.googleusercontent.com/static/fonts/robotocondensed/v9/Zd2E9abXLFGSr9G3YK2MsFzqCfRpIA3W6ypxnPISCPA.woff) format('woff');
+}
+@font-face {
+  font-family: 'Roboto Condensed';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Roboto Condensed Bold'), local('RobotoCondensed-Bold'), url(https://web.archive.org/web/20140414155952im_/http://themes.googleusercontent.com/static/fonts/robotocondensed/v9/b9QBgL0iMZfDSpmcXcE8nCSLrGe-fkSRw2DeVgOoWcQ.woff) format('woff');
+}
+
+/*
+     FILE ARCHIVED ON 15:59:52 Apr 14, 2014 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 17:49:13 Jul 14, 2025.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+*/
+/*
+playback timings (ms):
+  captures_list: 0.816
+  exclusion.robots: 0.033
+  exclusion.robots.policy: 0.016
+  esindex: 0.018
+  cdx.remote: 123.209
+  LoadShardBlock: 1147.178 (6)
+  PetaboxLoader3.datanode: 710.53 (7)
+  load_resource: 191.895
+  PetaboxLoader3.resolve: 83.343
+*/
