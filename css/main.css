@@ -688,9 +688,9 @@ hr {
     z-index: 2; }
 
   .tile, .tile .tile-inner {
-    width: calc(((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4);
-    height: calc(((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4);
-    line-height: calc(((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4); /* Match height for vertical centering */
+    width: calc(((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4 + 1px);
+    height: calc(((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4 + 1px);
+    line-height: calc(((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4 + 1px); /* Match height for vertical centering */
     box-sizing: border-box;
   }
   .tile.tile-position-1-1 {
@@ -698,80 +698,85 @@ hr {
     -moz-transform: translate(0, 0);
     transform: translate(0, 0);
 }
-  .tile.tile-position-1-2 {
-    -webkit-transform: translate(0, calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))));
-    -moz-transform: translate(0, calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))));
-    transform: translate(0, calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))));
+.tile.tile-position-1-1 {
+  -webkit-transform: translate(0, 0);
+  -moz-transform: translate(0, 0);
+  transform: translate(0, 0);
 }
-  .tile.tile-position-1-3 {
-    -webkit-transform: translate(0, calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))));
-    -moz-transform: translate(0, calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))));
-    transform: translate(0, calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))));
+.tile.tile-position-1-2 {
+  -webkit-transform: translate(0, calc(((100vw - 40px) * 27) / 112));
+  -moz-transform: translate(0, calc(((100vw - 40px) * 27) / 112));
+  transform: translate(0, calc(((100vw - 40px) * 27) / 112));
 }
-  .tile.tile-position-1-4 {
-    -webkit-transform: translate(0, calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))));
-    -moz-transform: translate(0, calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))));
-    transform: translate(0, calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))));
+.tile.tile-position-1-3 {
+  -webkit-transform: translate(0, calc(2 * ((100vw - 40px) * 27) / 112));
+  -moz-transform: translate(0, calc(2 * ((100vw - 40px) * 27) / 112));
+  transform: translate(0, calc(2 * ((100vw - 40px) * 27) / 112));
 }
-  .tile.tile-position-2-1 {
-    -webkit-transform: translate(calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), 0);
-    -moz-transform: translate(calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), 0);
-    transform: translate(calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), 0);
+.tile.tile-position-1-4 {
+  -webkit-transform: translate(0, calc(3 * ((100vw - 40px) * 27) / 112));
+  -moz-transform: translate(0, calc(3 * ((100vw - 40px) * 27) / 112));
+  transform: translate(0, calc(3 * ((100vw - 40px) * 27) / 112));
 }
-  .tile.tile-position-2-2 {
-    -webkit-transform: translate(calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))));
-    -moz-transform: translate(calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))));
-    transform: translate(calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))));
+.tile.tile-position-2-1 {
+  -webkit-transform: translate(calc(1 * ((100vw - 40px) * 27) / 112), 0);
+  -moz-transform: translate(calc(1 * ((100vw - 40px) * 27) / 112), 0);
+  transform: translate(calc(1 * ((100vw - 40px) * 27) / 112), 0);
 }
-  .tile.tile-position-2-3 {
-    -webkit-transform: translate(calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))));
-    -moz-transform: translate(calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))));
-    transform: translate(calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))));
+.tile.tile-position-2-2 {
+  -webkit-transform: translate(calc(1 * ((100vw - 40px) * 27) / 112), calc(1 * ((100vw - 40px) * 27) / 112));
+  -moz-transform: translate(calc(1 * ((100vw - 40px) * 27) / 112), calc(1 * ((100vw - 40px) * 27) / 112));
+  transform: translate(calc(1 * ((100vw - 40px) * 27) / 112), calc(1 * ((100vw - 40px) * 27) / 112));
 }
-  .tile.tile-position-2-4 {
-    -webkit-transform: translate(calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))));
-    -moz-transform: translate(calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))));
-    transform: translate(calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))));
+.tile.tile-position-2-3 {
+  -webkit-transform: translate(calc(1 * ((100vw - 40px) * 27) / 112), calc(2 * ((100vw - 40px) * 27) / 112));
+  -moz-transform: translate(calc(1 * ((100vw - 40px) * 27) / 112), calc(2 * ((100vw - 40px) * 27) / 112));
+  transform: translate(calc(1 * ((100vw - 40px) * 27) / 112), calc(2 * ((100vw - 40px) * 27) / 112));
 }
-  .tile.tile-position-3-1 {
-    -webkit-transform: translate(calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), 0);
-    -moz-transform: translate(calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), 0);
-    transform: translate(calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), 0);
+.tile.tile-position-2-4 {
+  -webkit-transform: translate(calc(1 * ((100vw - 40px) * 27) / 112), calc(3 * ((100vw - 40px) * 27) / 112));
+  -moz-transform: translate(calc(1 * ((100vw - 40px) * 27) / 112), calc(3 * ((100vw - 40px) * 27) / 112));
+  transform: translate(calc(1 * ((100vw - 40px) * 27) / 112), calc(3 * ((100vw - 40px) * 27) / 112));
 }
-  .tile.tile-position-3-2 {
-    -webkit-transform: translate(calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))));
-    -moz-transform: translate(calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))));
-    transform: translate(calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))));
+.tile.tile-position-3-1 {
+  -webkit-transform: translate(calc(2 * ((100vw - 40px) * 27) / 112), 0);
+  -moz-transform: translate(calc(2 * ((100vw - 40px) * 27) / 112), 0);
+  transform: translate(calc(2 * ((100vw - 40px) * 27) / 112), 0);
 }
-  .tile.tile-position-3-3 {
-    -webkit-transform: translate(calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))));
-    -moz-transform: translate(calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))));
-    transform: translate(calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))));
+.tile.tile-position-3-2 {
+  -webkit-transform: translate(calc(2 * ((100vw - 40px) * 27) / 112), calc(1 * ((100vw - 40px) * 27) / 112));
+  -moz-transform: translate(calc(2 * ((100vw - 40px) * 27) / 112), calc(1 * ((100vw - 40px) * 27) / 112));
+  transform: translate(calc(2 * ((100vw - 40px) * 27) / 112), calc(1 * ((100vw - 40px) * 27) / 112));
 }
-  .tile.tile-position-3-4 {
-    -webkit-transform: translate(calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))));
-    -moz-transform: translate(calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))));
-    transform: translate(calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))));
+.tile.tile-position-3-3 {
+  -webkit-transform: translate(calc(2 * ((100vw - 40px) * 27) / 112), calc(2 * ((100vw - 40px) * 27) / 112));
+  -moz-transform: translate(calc(2 * ((100vw - 40px) * 27) / 112), calc(2 * ((100vw - 40px) * 27) / 112));
+  transform: translate(calc(2 * ((100vw - 40px) * 27) / 112), calc(2 * ((100vw - 40px) * 27) / 112));
 }
-  .tile.tile-position-4-1 {
-    -webkit-transform: translate(calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), 0);
-    -moz-transform: translate(calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), 0);
-    transform: translate(calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), 0);
+.tile.tile-position-3-4 {
+  -webkit-transform: translate(calc(2 * ((100vw - 40px) * 27) / 112), calc(3 * ((100vw - 40px) * 27) / 112));
+  -moz-transform: translate(calc(2 * ((100vw - 40px) * 27) / 112), calc(3 * ((100vw - 40px) * 27) / 112));
+  transform: translate(calc(2 * ((100vw - 40px) * 27) / 112), calc(3 * ((100vw - 40px) * 27) / 112));
 }
-  .tile.tile-position-4-2 {
-    -webkit-transform: translate(calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))));
-    -moz-transform: translate(calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))));
-    transform: translate(calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))));
+.tile.tile-position-4-1 {
+  -webkit-transform: translate(calc(3 * ((100vw - 40px) * 27) / 112), 0);
+  -moz-transform: translate(calc(3 * ((100vw - 40px) * 27) / 112), 0);
+  transform: translate(calc(3 * ((100vw - 40px) * 27) / 112), 0);
 }
-  .tile.tile-position-4-3 {
-    -webkit-transform: translate(calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))));
-    -moz-transform: translate(calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))));
-    transform: translate(calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))));
+.tile.tile-position-4-2 {
+  -webkit-transform: translate(calc(3 * ((100vw - 40px) * 27) / 112), calc(1 * ((100vw - 40px) * 27) / 112));
+  -moz-transform: translate(calc(3 * ((100vw - 40px) * 27) / 112), calc(1 * ((100vw - 40px) * 27) / 112));
+  transform: translate(calc(3 * ((100vw - 40px) * 27) / 112), calc(1 * ((100vw - 40px) * 27) / 112));
 }
-  .tile.tile-position-4-4 {
-    -webkit-transform: translate(calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))));
-    -moz-transform: translate(calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))));
-    transform: translate(calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))));
+.tile.tile-position-4-3 {
+  -webkit-transform: translate(calc(3 * ((100vw - 40px) * 27) / 112), calc(2 * ((100vw - 40px) * 27) / 112));
+  -moz-transform: translate(calc(3 * ((100vw - 40px) * 27) / 112), calc(2 * ((100vw - 40px) * 27) / 112));
+  transform: translate(calc(3 * ((100vw - 40px) * 27) / 112), calc(2 * ((100vw - 40px) * 27) / 112));
+}
+.tile.tile-position-4-4 {
+  -webkit-transform: translate(calc(3 * ((100vw - 40px) * 27) / 112), calc(3 * ((100vw - 40px) * 27) / 112));
+  -moz-transform: translate(calc(3 * ((100vw - 40px) * 27) / 112), calc(3 * ((100vw - 40px) * 27) / 112));
+  transform: translate(calc(3 * ((100vw - 40px) * 27) / 112), calc(3 * ((100vw - 40px) * 27) / 112));
 }
   .game-container {
     margin: 20px auto; }
