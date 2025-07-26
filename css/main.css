@@ -674,7 +674,7 @@ hr {
     height: calc(((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4);
     margin-right: calc((100vw - 40px) / 28); /* Correct margin for horizontal spacing */
     float: left; /* CRITICAL: This MUST be 'float: left;' for the grid to work */
-    outline: 2px solid blue; /* Your diagnostic outline */
+    /*outline: 2px solid blue; /* Your diagnostic outline */
     box-sizing: border-box; /* Crucial for calc to work as expected */
     flex-shrink: 0; /* Keep if present from previous steps, won't harm float layout */
     /* Ensure NO 'float: none;' or other conflicting display properties here */
@@ -783,7 +783,7 @@ hr {
 
   .tile .tile-inner {
     font-size: calc(((100vw - 40px) / 4) / 1.6); 
-	outline: 2px solid red;}
+	/*outline: 2px solid red;} */
 
   .game-container .game-message p { 
     font-size: calc(((100vw - 40px) / 4) / 0.75); /* Equivalent to 60px in 280px grid */
