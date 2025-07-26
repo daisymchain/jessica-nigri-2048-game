@@ -101,17 +101,18 @@ body {
         padding: 0 10px; /* Add some side padding to the main container */
     }
 
-    .game-container .grid-cell {
+    .game-container {
         /* Calculate width based on viewport, leaving 20px margin on each side (total 40px) */
-        width: calc(100vw - 40px);
+        width: calc(100vw - 40px) !important;
         /* Keep it square by matching height to width */
-        height: calc(100vw - 40px);
-        margin: 20px auto; /* Re-center with some top margin */
+        height: calc(100vw - 40px) !important;
+        margin: 20px auto !important; /* Re-center with some top margin */
         /* Make padding proportional to the original mobile ratio (10px padding for 280px width) */
-        padding: calc((100vw - 40px) / 28);
+        padding: calc((100vw - 40px) / 28) !important;
+		box-sizing: border-box !important;
     }
 
-.grid-cell {
+    .game-container .grid-cell {
         /*
          New calculation for cell width:
          Total game-container width: (100vw - 40px)
@@ -128,9 +129,11 @@ body {
         height: calc(((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) !important;
         margin-right: 0 !important; /* IMPORTANT: Remove margin-right from cells, use gap instead */
         outline: 2px solid blue !important;
+        flex-shrink: 0 !important; 
+        box-sizing: border-box !important;
     }    
 
-.game-container .grid-row { /* Increased specificity to match main.css */
+    .game-container .grid-row { /* Increased specificity to match main.css */
         margin-bottom: calc((100vw - 40px) / 28) !important; /* Bottom margin for rows */
         display: flex !important; /* Force flexbox layout */
         flex-direction: row !important; /* Force horizontal alignment */
@@ -149,6 +152,7 @@ body {
         height: calc((((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + 1px) !important;
         /* Adjust line-height for vertical centering of tile text */
         line-height: calc((((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + 10px) !important;
+        box-sizing: border-box !important;
     }
 
 /* ADD THIS NEW BLOCK INSIDE THE @media screen and (max-width: 520px) BLOCK */
