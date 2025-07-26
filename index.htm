@@ -113,24 +113,13 @@ body {
     }
 
     .game-container .grid-cell {
-        /*
-         New calculation for cell width:
-         Total game-container width: (100vw - 40px)
-         game-container padding (P_gc): ((100vw - 40px) / 28)
-         Inner width for cells = (100vw - 40px) - (2 * P_gc)
-         We need 4 cells and 3 gaps. Each gap will be P_gc.
-         So: (4 * Cell_Width) + (3 * P_gc) = Inner width for cells
-         4 * Cell_Width = Inner width for cells - (3 * P_gc)
-         4 * Cell_Width = ((100vw - 40px) - (2 * P_gc)) - (3 * P_gc)
-         4 * Cell_Width = (100vw - 40px) - (5 * P_gc)
-         Cell_Width = ((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4
-        */
-        width: calc(((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) !important;
-        height: calc(((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) !important;
-        margin-right: 0 !important; /* IMPORTANT: Remove margin-right from cells, use gap instead */
-        outline: 2px solid blue !important;
-        flex-shrink: 0 !important; 
-        box-sizing: border-box !important;
+    /* TEMPORARY DIAGNOSTIC VALUES - REMOVE CALC() */
+    width: 50px !important; /* <-- CHANGE THIS */
+    height: 50px !important; /* <-- CHANGE THIS */
+    margin-right: 0 !important;
+    outline: 2px solid blue !important;
+    flex-shrink: 0 !important; 
+    box-sizing: border-box !important;
     }    
 
     .game-container .grid-row { /* Increased specificity to match main.css */
