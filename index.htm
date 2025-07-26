@@ -10,7 +10,12 @@
 body {
     margin: 0;
     padding: 0;
-    text-align: center;
+    display: flex;
+    flex-direction: column; /* Arrange content vertically */
+    align-items: center; /* Center horizontally */
+    min-height: 100vh; /* Ensure body takes full viewport height */
+    justify-content: center; /* Center vertically if content doesn't fill */
+
 }
 
 .game-wrapper {
@@ -114,6 +119,7 @@ body {
         height: calc((100vw - 40px - (3 * ((100vw - 40px) / 28))) / 4);
         /* Make margin-right proportional (same ratio as game-container padding) */
         margin-right: calc((100vw - 40px) / 28);
+		outline: 2px solid blue !important;
     }
     /* Apply margin-bottom proportionally to grid rows */
     .grid-row {
