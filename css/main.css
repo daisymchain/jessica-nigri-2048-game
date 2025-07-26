@@ -587,15 +587,17 @@ hr {
   .game-container {
     margin-top: 40px;
     position: relative;
-    padding: 10px;
+    padding: calc((100vw - 40px) / 28);
     cursor: default;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     background: #bbada0;
     border-radius: 6px;
-    width: 280px;
-    height: 280px;
+    /* width: 280px; 
+    height: 280px; -commented out to allow dynamic sizing*/ 
+    width: calc(100vw - 40px);
+    height: calc(100vw - 40px);
     -ms-touch-action: none;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -653,36 +655,30 @@ hr {
     z-index: 1; }
 
   .grid-row {
-    margin-bottom: 10px; }
+    margin-bottom: calc((100vw - 40px) / 28); 
+	}
     .grid-row:last-child {
-      margin-bottom: 0; }
+      margin-bottom: 0; 
+	  }
     .grid-row:after {
       content: "";
       display: block;
-      clear: both; }
+      clear: both; 
+	  }
 
   .grid-cell {
-    width: calc(((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4);
-    height: calc(((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4);
+    width: calc(((100vw - 40px) - (3 * ((100vw - 40px) / 28))) / 4);
+    height: calc(((100vw - 40px) - (3 * ((100vw - 40px) / 28))) / 4);
     /* Add necessary layout and diagnostic properties */
-    margin-right: 0; /* Remove default margin-right, we'll use gap */
+    margin-right: calc((100vw - 40px) / 28); /* Remove default margin-right, we'll use gap */
+    float: left;
     outline: 2px solid blue; /* Your diagnostic outline */
     box-sizing: border-box; /* Crucial for calc to work as expected */
     flex-shrink: 0; /* Prevent cells from shrinking below their calculated size */
     /* Ensure float is not active for flexbox to work */
-    float: none; /* Add this if 'float: left;' exists here in main.css; otherwise, it's not needed. Check main.css for .grid-cell outside media query too. */
   }
 
-  /* Now, ensure grid-row is set up for flexbox within this media query */
-  .grid-row {
-    margin-bottom: calc((100vw - 40px) / 28); /* Bottom margin for rows */
-    display: flex; /* Force flexbox layout */
-    flex-direction: row; /* Force horizontal alignment */
-    flex-wrap: nowrap; /* Prevent cells from wrapping to next line */
-    justify-content: flex-start; /* Align cells to the beginning of the row */
-    gap: calc((100vw - 40px) / 28); /* Use gap for spacing between cells */
-    padding: 0; /* Ensure no extra padding within grid-row */
-  }
+
     .grid-cell:last-child {
       margin-right: 0; }
 
@@ -691,9 +687,9 @@ hr {
     z-index: 2; }
 
   .tile, .tile .tile-inner {
-    width: calc((((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + 1px);
-    height: calc((((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + 1px);
-    line-height: calc((((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + 10px);
+    width: calc((((100vw - 40px) - (3 * ((100vw - 40px) / 28))) / 4) + 1px);
+    height: calc((((100vw - 40px) - (3 * ((100vw - 40px) / 28))) / 4) + 1px);
+    line-height: calc((((100vw - 40px) - (3 * ((100vw - 40px) / 28))) / 4) + 10px);
 	box-sizing: border-box;}
   .tile.tile-position-1-1 {
     -webkit-transform: translate(0, 0);
