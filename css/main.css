@@ -662,12 +662,27 @@ hr {
       clear: both; }
 
   .grid-cell {
-    width: 57.5px;
-    height: 57.5px;
-    margin-right: 10px;
-    float: left;
-    border-radius: 3px;
-    background: rgba(238, 228, 218, 0.35); }
+    width: calc(((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4);
+    height: calc(((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4);
+    /* Add necessary layout and diagnostic properties */
+    margin-right: 0; /* Remove default margin-right, we'll use gap */
+    outline: 2px solid blue; /* Your diagnostic outline */
+    box-sizing: border-box; /* Crucial for calc to work as expected */
+    flex-shrink: 0; /* Prevent cells from shrinking below their calculated size */
+    /* Ensure float is not active for flexbox to work */
+    float: none; /* Add this if 'float: left;' exists here in main.css; otherwise, it's not needed. Check main.css for .grid-cell outside media query too. */
+  }
+
+  /* Now, ensure grid-row is set up for flexbox within this media query */
+  .grid-row {
+    margin-bottom: calc((100vw - 40px) / 28); /* Bottom margin for rows */
+    display: flex; /* Force flexbox layout */
+    flex-direction: row; /* Force horizontal alignment */
+    flex-wrap: nowrap; /* Prevent cells from wrapping to next line */
+    justify-content: flex-start; /* Align cells to the beginning of the row */
+    gap: calc((100vw - 40px) / 28); /* Use gap for spacing between cells */
+    padding: 0; /* Ensure no extra padding within grid-row */
+  }
     .grid-cell:last-child {
       margin-right: 0; }
 
