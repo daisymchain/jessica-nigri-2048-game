@@ -573,7 +573,7 @@ hr {
     margin-top: 15px; }
 
   .container {
-    width: 320px;
+    width: 320px; /* Keep this if the container itself is fixed, but if you want it responsive like the game-container, it would be calc(100vw - 40px) */
     margin: 0 auto; }
 
   .score-container, .best-container {
@@ -587,17 +587,15 @@ hr {
   .game-container {
     margin-top: 40px;
     position: relative;
-    padding: calc((100vw - 40px) / 28);
+    padding: calc((100vw - 40px) / 28); /* Responsive padding */
     cursor: default;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     background: #bbada0;
     border-radius: 6px;
-    /* width: 280px; 
-    height: 280px; -commented out to allow dynamic sizing*/ 
-    width: calc(100vw - 40px);
-    height: calc(100vw - 40px);
+    width: calc(100vw - 40px); /* Responsive width */
+    height: calc(100vw - 40px); /* Responsive height */
     -ms-touch-action: none;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -619,13 +617,18 @@ hr {
       -moz-animation-fill-mode: both;
       animation-fill-mode: both; }
       .game-container .game-message p {
-        font-size: 60px;
+        /* UPDATED: Responsive font sizing for message */
+        font-size: calc(((100vw - 40px) / 4) / 0.75); /* Roughly 60px equivalent */
         font-weight: bold;
-        height: 60px;
-        line-height: 60px;
-        margin-top: 2px; }
+        height: calc(((100vw - 40px) / 4) / 0.75);
+        line-height: calc(((100vw - 40px) / 4) / 0.75);
+        margin-top: calc(((100vw - 40px) / 4) / 30); /* Roughly 2px equivalent */
+      }
       .game-container .game-message .lower {
-        display: block; }
+        /* UPDATED: Responsive margin-top for lower message */
+        display: block;
+        margin-top: calc(((100vw - 40px) / 4) / 70); /* Roughly 0px equivalent, but scales */
+      }
       .game-container .game-message a {
         display: inline-block;
         background: #8f7a66;
@@ -655,42 +658,41 @@ hr {
     z-index: 1; }
 
   .grid-row {
-    margin-bottom: calc((100vw - 40px) / 28); 
-	}
+    margin-bottom: calc((100vw - 40px) / 28);
+  }
     .grid-row:last-child {
-      margin-bottom: 0; 
-	  }
-    .grid-row:after {
+      margin-bottom: 0;
+    }
+    .grid-row:after { /* Corrected formatting for this block */
       content: "";
       display: block;
-      clear: both; 
-	  }
+      clear: both;
+    }
 
   .grid-cell {
-    width: calc(((100vw - 40px) - (3 * ((100vw - 40px) / 28))) / 4);
-    height: calc(((100vw - 40px) - (3 * ((100vw - 40px) / 28))) / 4);
-    /* Add necessary layout and diagnostic properties */
-    margin-right: calc((100vw - 40px) / 28); /* Remove default margin-right, we'll use gap */
-    float: left;
+    width: calc(((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4);
+    height: calc(((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4);
+    margin-right: calc((100vw - 40px) / 28); /* Correct margin for horizontal spacing */
+    float: left; /* CRITICAL: This MUST be 'float: left;' for the grid to work */
     outline: 2px solid blue; /* Your diagnostic outline */
     box-sizing: border-box; /* Crucial for calc to work as expected */
-    flex-shrink: 0; /* Prevent cells from shrinking below their calculated size */
-    /* Ensure float is not active for flexbox to work */
+    flex-shrink: 0; /* Keep if present from previous steps, won't harm float layout */
+    /* Ensure NO 'float: none;' or other conflicting display properties here */
   }
-
-
     .grid-cell:last-child {
-      margin-right: 0; }
+      margin-right: 0;
+    }
 
   .tile-container {
     position: absolute;
     z-index: 2; }
 
   .tile, .tile .tile-inner {
-    width: calc((((100vw - 40px) - (3 * ((100vw - 40px) / 28))) / 4) + 1px);
-    height: calc((((100vw - 40px) - (3 * ((100vw - 40px) / 28))) / 4) + 1px);
-    line-height: calc((((100vw - 40px) - (3 * ((100vw - 40px) / 28))) / 4) + 10px);
-	box-sizing: border-box;}
+    width: calc(((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4);
+    height: calc(((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4);
+    line-height: calc(((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4); /* Match height for vertical centering */
+    box-sizing: border-box;
+  }
   .tile.tile-position-1-1 {
     -webkit-transform: translate(0, 0);
     -moz-transform: translate(0, 0);
