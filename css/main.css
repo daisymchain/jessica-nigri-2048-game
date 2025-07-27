@@ -101,14 +101,15 @@ h1.title {
   margin-top: 8px;
   text-align: center;
   box-sizing: border-box; /* IMPORTANT: Ensures padding is included in the element's total dimensions */  }
+
   .score-container:after, .best-container:after {
     position: absolute;
     width: 100%;
-    top: 10px;
+    top: 5px;
     left: 0;
     text-transform: uppercase;
     font-size: 13px;
-    line-height: 13px;
+    line-height: 13px; /* Ensures line-height matches font-size for this label */
     text-align: center;
     color: #eee4da; }
     
@@ -581,26 +582,33 @@ hr {
     margin-top: 0;
     padding: 15px 10px;
     min-width: 40px; }
+/* Ensure NO explicit height or line-height properties are here, as they'd override the global fix */
+}
 
   .heading {
     margin-bottom: 10px; }
 
-  .game-container {
-    margin-top: 40px;
-    position: relative;
-    padding: calc((100vw - 40px) / 28); /* Responsive padding */
-    cursor: default;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    background: #bbada0;
-    border-radius: 6px;
-    width: calc(100vw - 40px); /* Responsive width */
-    height: calc(100vw - 40px); /* Responsive height */
-    -ms-touch-action: none;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box; }
+   .game-container {
+   /* Change margin: 20px auto; to margin-top: 60px; and add auto for horizontal centering */
+   margin-top: 60px; /* Increased from 20px/40px to ensure enough vertical space for the scoreboard */
+   margin-left: auto;
+   margin-right: auto;
+
+   position: relative;
+   padding: calc((100vw - 40px) / 28);
+   cursor: default;
+   -webkit-touch-callout: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   background: #bbada0;
+   border-radius: 6px;
+   width: calc(100vw - 40px);
+   height: calc(100vw - 40px);
+   -ms-touch-action: none;
+   -webkit-box-sizing: border-box;
+   -moz-box-sizing: border-box;
+   box-sizing: border-box;
+}
     .game-container .game-message {
       display: none;
       position: absolute;
