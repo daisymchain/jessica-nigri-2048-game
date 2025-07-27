@@ -93,13 +93,14 @@ h1.title {
   background: #bbada0;
   padding: 15px 25px;
   font-size: 25px;
-  height: 25px;
-  line-height: 47px;
+/*  height: 25px;*/
+/*  line-height: 47px;*/
   font-weight: bold;
   border-radius: 3px;
   color: white;
   margin-top: 8px;
-  text-align: center; }
+  text-align: center;
+  box-sizing: border-box; /* IMPORTANT: Ensures padding is included in the element's total dimensions */  }
   .score-container:after, .best-container:after {
     position: absolute;
     width: 100%;
