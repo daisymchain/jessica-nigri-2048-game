@@ -38,17 +38,17 @@ html, body {
 .tile-inner { background-position: center center !important; background-size: cover !important; background-repeat: no-repeat !important; }
 
 /* Your existing tile background images (make sure these are all correct from previous fixes) */
-.tile-2 .tile-inner { background-image: url(../Images/tile-2.gif); }
-.tile-4 .tile-inner { background-image: url(../Images/tile-4.gif); }
-.tile-8 .tile-inner { background-image: url(../Images/tile-8.webp); }
-.tile-16 .tile-inner { background-image: url(../Images/tile-16.gif); }
-.tile-32 .tile-inner { background-image: url(../Images/tile-32.gif); }
-.tile-64 .tile-inner { background-image: url(../Images/tile-64.gif); }
-.tile-128 .tile-inner { background-image: url(../Images/tile-128.gif); }
-.tile-256 .tile-inner { background-image: url(../Images/tile-256.gif); }
-.tile-512 .tile-inner { background-image: url(../Images/tile-512.gif); }
-.tile-1024 .tile-inner { background-image: url(../Images/tile-1024.gif); }
-.tile-2048 .tile-inner { background-image: url(../Images/tile-2048.gif); }
+.tile-2 .tile-inner { background-image: url(../Images/tile-2.gif) !important; }
+.tile-4 .tile-inner { background-image: url(../Images/tile-4.gif) !important; }
+.tile-8 .tile-inner { background-image: url(../Images/tile-8.webp) !important; }
+.tile-16 .tile-inner { background-image: url(../Images/tile-16.gif) !important; }
+.tile-32 .tile-inner { background-image: url(../Images/tile-32.gif) !important; }
+.tile-64 .tile-inner { background-image: url(../Images/tile-64.gif) !important; }
+.tile-128 .tile-inner { background-image: url(../Images/tile-128.gif) !important; }
+.tile-256 .tile-inner { background-image: url(../Images/tile-256.gif) !important; }
+.tile-512 .tile-inner { background-image: url(../Images/tile-512.gif) !important; }
+.tile-1024 .tile-inner { background-image: url(../Images/tile-1024.gif) !important; }
+.tile-2048 .tile-inner { background-image: url(../Images/tile-2048.gif) !important; }
 
 /* Existing text/color rules if any */
 .thisistext, p, a, h1 { color: #ba17d1; }
