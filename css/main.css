@@ -34,6 +34,26 @@ html, body {
     box-sizing: border-box; /* This should be here globally */
 }
 
+/* lol !important */
+.tile-inner { background-position: center center !important; background-size: cover !important; background-repeat: no-repeat !important; }
+
+/* Your existing tile background images (make sure these are all correct from previous fixes) */
+.tile-2 .tile-inner { background-image: url(../Images/tile-2.gif); }
+.tile-4 .tile-inner { background-image: url(../Images/tile-4.gif); }
+.tile-8 .tile-inner { background-image: url(../Images/tile-8.webp); }
+.tile-16 .tile-inner { background-image: url(../Images/tile-16.gif); }
+.tile-32 .tile-inner { background-image: url(../Images/tile-32.gif); }
+.tile-64 .tile-inner { background-image: url(../Images/tile-64.gif); }
+.tile-128 .tile-inner { background-image: url(../Images/tile-128.gif); }
+.tile-256 .tile-inner { background-image: url(../Images/tile-256.gif); }
+.tile-512 .tile-inner { background-image: url(../Images/tile-512.gif); }
+.tile-1024 .tile-inner { background-image: url(../Images/tile-1024.gif); }
+.tile-2048 .tile-inner { background-image: url(../Images/tile-2048.gif); }
+
+/* Existing text/color rules if any */
+.thisistext, p, a, h1 { color: #ba17d1; }
+.game-container { background-color: #c19bea }
+
 @media (max-width:500px) {
   #uvt_box { margin-top: 20px !important; }
   .padsm { padding-top:30px;}
@@ -124,7 +144,7 @@ h1.title {
   .score-container:after, .best-container:after {
     position: absolute;
     width: 100%;
-    top: 10px;
+    top: 15px;
     left: 0;
     text-transform: uppercase;
     font-size: 13px;
@@ -606,7 +626,13 @@ hr {
 }
 
   .heading {
-    margin-bottom: 10px; }
+    margin-bottom: 10px;
+    text-align: center;	}
+
+.heading {
+  text-align: center; /* This will center the title and any non-floated content */
+  /* ... any other properties for .heading ... */
+}
 
    .game-container {
    /* Change margin: 20px auto; to margin-top: 60px; and add auto for horizontal centering */
@@ -894,26 +920,6 @@ body {
     display:inline-block;
     vertical-align: middle;
 }
-
-/* lol !important */
-.tile-inner { background-position: center center !important; background-size: cover !important; background-repeat: no-repeat !important; }
-
-/* Your existing tile background images (make sure these are all correct from previous fixes) */
-.tile-2 .tile-inner { background-image: url(../Images/tile-2.gif) !important; }
-.tile-4 .tile-inner { background-image: url(../Images/tile-4.gif) !important; }
-.tile-8 .tile-inner { background-image: url(../Images/tile-8.webp) !important; }
-.tile-16 .tile-inner { background-image: url(../Images/tile-16.gif) !important; }
-.tile-32 .tile-inner { background-image: url(../Images/tile-32.gif) !important; }
-.tile-64 .tile-inner { background-image: url(../Images/tile-64.gif) !important; }
-.tile-128 .tile-inner { background-image: url(../Images/tile-128.gif) !important; }
-.tile-256 .tile-inner { background-image: url(../Images/tile-256.gif) !important; }
-.tile-512 .tile-inner { background-image: url(../Images/tile-512.gif) !important; }
-.tile-1024 .tile-inner { background-image: url(../Images/tile-1024.gif) !important; }
-.tile-2048 .tile-inner { background-image: url(../Images/tile-2048.gif) !important; }
-
-/* Existing text/color rules if any */
-.thisistext, p, a, h1 { color: #ba17d1; }
-.game-container { background-color: #c19bea }
 
 /* ONLY THIS PART OF THE MEDIA QUERY SHOULD REMAIN FOR NOW */
 @media (max-width: 500px) {
