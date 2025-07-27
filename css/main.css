@@ -113,7 +113,7 @@ h1.title {
   padding: 15px 25px;
   font-size: 25px;
 /*  height: 25px;*/
-/*  line-height: 47px;*/
+  line-height: 1;
   font-weight: bold;
   border-radius: 3px;
   color: white;
@@ -124,7 +124,7 @@ h1.title {
   .score-container:after, .best-container:after {
     position: absolute;
     width: 100%;
-    top: 5px;
+    top: 10px;
     left: 0;
     text-transform: uppercase;
     font-size: 13px;
@@ -899,17 +899,17 @@ body {
 .tile-inner { background-position: center center !important; background-size: cover !important; background-repeat: no-repeat !important; }
 
 /* Your existing tile background images (make sure these are all correct from previous fixes) */
-.tile-2 .tile-inner { background-image: url(.../Images/tile-2.gif) !important; }
-.tile-4 .tile-inner { background-image: url(.../Images/tile-4.gif) !important; }
-.tile-8 .tile-inner { background-image: url(.../Images/tile-8.webp) !important; }
-.tile-16 .tile-inner { background-image: url(.../Images/tile-16.gif) !important; }
-.tile-32 .tile-inner { background-image: url(.../Images/tile-32.gif) !important; }
-.tile-64 .tile-inner { background-image: url(.../Images/tile-64.gif) !important; }
-.tile-128 .tile-inner { background-image: url(.../Images/tile-128.gif) !important; }
-.tile-256 .tile-inner { background-image: url(.../Images/tile-256.gif) !important; }
-.tile-512 .tile-inner { background-image: url(.../Images/tile-512.gif) !important; }
-.tile-1024 .tile-inner { background-image: url(.../Images/tile-1024.gif) !important; }
-.tile-2048 .tile-inner { background-image: url(.../Images/tile-2048.gif) !important; }
+.tile-2 .tile-inner { background-image: url(../Images/tile-2.gif) !important; }
+.tile-4 .tile-inner { background-image: url(../Images/tile-4.gif) !important; }
+.tile-8 .tile-inner { background-image: url(../Images/tile-8.webp) !important; }
+.tile-16 .tile-inner { background-image: url(../Images/tile-16.gif) !important; }
+.tile-32 .tile-inner { background-image: url(../Images/tile-32.gif) !important; }
+.tile-64 .tile-inner { background-image: url(../Images/tile-64.gif) !important; }
+.tile-128 .tile-inner { background-image: url(../Images/tile-128.gif) !important; }
+.tile-256 .tile-inner { background-image: url(../Images/tile-256.gif) !important; }
+.tile-512 .tile-inner { background-image: url(../Images/tile-512.gif) !important; }
+.tile-1024 .tile-inner { background-image: url(../Images/tile-1024.gif) !important; }
+.tile-2048 .tile-inner { background-image: url(../Images/tile-2048.gif) !important; }
 
 /* Existing text/color rules if any */
 .thisistext, p, a, h1 { color: #ba17d1; }
