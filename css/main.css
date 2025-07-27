@@ -829,3 +829,340 @@ playback timings (ms):
   PetaboxLoader3.resolve: 476.292 (2)
   load_resource: 390.046
 */
+
+<style>
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column; /* Arrange content vertically */
+    align-items: center; /* Center horizontally */
+    min-height: 100vh; /* Ensure body takes full viewport height */
+    justify-content: center; /* Center vertically if content doesn't fill */
+
+}
+
+.game-wrapper {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 60px 10px 0px 30px;
+    box-sizing: border-box;
+}
+
+/* Ensure specific block elements within the wrapper also have auto margins if they have fixed widths */
+.container,
+.game-container {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Specific adjustments for "How to play" if needed */
+.game-explanation {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* If your .game-container background isn't centering, you might need this */
+.game-container::before {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tile-text {
+    display:inline-block;
+    vertical-align: middle;
+}
+
+/* lol !important */
+.tile-inner { background-position: center center !important; background-size: cover !important; background-repeat: no-repeat !important; }
+
+/* Your existing tile background images (make sure these are all correct from previous fixes) */
+.tile-2 .tile-inner { background-image: url(Images/tile-2.gif) !important; }
+.tile-4 .tile-inner { background-image: url(Images/tile-4.gif) !important; }
+.tile-8 .tile-inner { background-image: url(Images/tile-8.webp) !important; }
+.tile-16 .tile-inner { background-image: url(Images/tile-16.gif) !important; }
+.tile-32 .tile-inner { background-image: url(Images/tile-32.gif) !important; }
+.tile-64 .tile-inner { background-image: url(Images/tile-64.gif) !important; }
+.tile-128 .tile-inner { background-image: url(Images/tile-128.gif) !important; }
+.tile-256 .tile-inner { background-image: url(Images/tile-256.gif) !important; }
+.tile-512 .tile-inner { background-image: url(Images/tile-512.gif) !important; }
+.tile-1024 .tile-inner { background-image: url(Images/tile-1024.gif) !important; }
+.tile-2048 .tile-inner { background-image: url(Images/tile-2048.gif) !important; }
+
+/* Existing text/color rules if any */
+.thisistext, p, a, h1 { color: #ba17d1; }
+.game-container { background-color: #c19bea }
+
+/* ONLY THIS PART OF THE MEDIA QUERY SHOULD REMAIN FOR NOW */
+@media (max-width: 500px) {
+    .game-wrapper {
+        max-width: 100%;
+        padding: 20px 0 0 0; /* REMOVED HORIZONTAL PADDING */
+        margin: 10px auto;
+    }
+    .title {
+        font-size: 30px;
+    }
+    .score-container,
+    .best-container {
+        font-size: 20px;
+    }
+}
+@media (max-width: 380px) {
+    .game-wrapper {
+        padding: 10px 0 0 0;
+    }
+    .title {
+        font-size: 25px;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    /* Override fixed container width and padding for mobile */
+    .container {
+        width: auto; /* Allow container to be fluid */
+        padding: 0 10px; /* Add some side padding to the main container */
+    }
+
+    .game-container {
+        /* Calculate width based on viewport, leaving 20px margin on each side (total 40px) */
+        width: calc(100vw - 40px) !important;
+        /* Keep it square by matching height to width */
+        height: calc(100vw - 40px) !important;
+        margin: 20px auto !important; /* Re-center with some top margin */
+        /* Make padding proportional to the original mobile ratio (10px padding for 280px width) */
+        padding: calc((100vw - 40px) / 28) !important;
+		box-sizing: border-box !important;
+    }
+
+    .game-container .grid-cell {
+        /*
+         New calculation for cell width:
+         Total game-container width: (100vw - 40px)
+         game-container padding (P_gc): ((100vw - 40px) / 28)
+         Inner width for cells = (100vw - 40px) - (2 * P_gc)
+         We need 4 cells and 3 gaps. Each gap will be P_gc.
+         So: (4 * Cell_Width) + (3 * P_gc) = Inner width for cells
+         4 * Cell_Width = Inner width for cells - (3 * P_gc)
+         4 * Cell_Width = ((100vw - 40px) - (2 * P_gc)) - (3 * P_gc)
+         4 * Cell_Width = (100vw - 40px) - (5 * P_gc)
+         Cell_Width = ((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4
+        */
+         width: calc(((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) !important;
+         height: calc(((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) !important;
+         margin-right: 0 !important;
+         /*outline: 2px solid blue !important;*/ /*use for cell diagnostic*/
+         flex-shrink: 0 !important; 
+         box-sizing: border-box !important;
+    }   
+
+    .game-container .grid-row { /* Increased specificity to match main.css */
+        margin-bottom: calc((100vw - 40px) / 28) !important; /* Bottom margin for rows */
+        display: flex !important; /* Force flexbox layout */
+        flex-direction: row !important; /* Force horizontal alignment */
+        flex-wrap: nowrap !important; /* CRITICAL: Prevent cells from wrapping to next line */
+        justify-content: flex-start !important; /* Align cells to the beginning of the row */
+        gap: calc((100vw - 40px) / 28) !important; /* Use gap for spacing between cells */
+        padding: 0 !important; /* Ensure no extra padding within grid-row */
+    }
+
+    /* Make tiles responsive and adjust their positioning */
+
+.tile, .tile .tile-inner {
+        /* Tile width matches new grid cell width, plus 1px */
+        width: calc((((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + 1px) !important;
+        /* Keep tiles square */
+        height: calc((((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + 1px) !important;
+        /* Adjust line-height for vertical centering of tile text */
+        line-height: calc((((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + 10px) !important;
+        box-sizing: border-box !important;
+    }
+
+/* ADD THIS NEW BLOCK INSIDE THE @media screen and (max-width: 520px) BLOCK */
+    .tile .tile-inner {
+        /*outline: 2px solid red !important;*/ /* use for tile diagnostic */
+    }
+	
+    /* Override specific tile positions with calculated translate values */
+/* The 'step' value for translation is (calculated_cell_width + calculated_gap_width) */
+/* We use !important to ensure these override main.css */
+
+/* Column 1 (X=0 steps horizontally) */
+.tile-position-1-1 { transform: translate(0, 0) !important; }
+.tile-position-1-2 { transform: translate(0, calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28)))) !important; }
+.tile-position-1-3 { transform: translate(0, calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28)))) !important; }
+.tile-position-1-4 { transform: translate(0, calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28)))) !important; }
+
+/* Column 2 (X=1 step horizontally) */
+.tile-position-2-1 { transform: translate(calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), 0) !important; }
+.tile-position-2-2 { transform: translate(calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28)))) !important; }
+.tile-position-2-3 { transform: translate(calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28)))) !important; }
+.tile-position-2-4 { transform: translate(calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28)))) !important; }
+
+/* Column 3 (X=2 steps horizontally) */
+.tile-position-3-1 { transform: translate(calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), 0) !important; }
+.tile-position-3-2 { transform: translate(calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28)))) !important; }
+.tile-position-3-3 { transform: translate(calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28)))) !important; }
+.tile-position-3-4 { transform: translate(calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28)))) !important; }
+
+/* Column 4 (X=3 steps horizontally) */
+.tile-position-4-1 { transform: translate(calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), 0) !important; }
+.tile-position-4-2 { transform: translate(calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28)))) !important; }
+.tile-position-4-3 { transform: translate(calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28)))) !important; }
+.tile-position-4-4 { transform: translate(calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28)))) !important; }
+
+    /* Adjust font sizes for tiles to scale proportionally */
+    .tile .tile-inner {
+        font-size: calc(((100vw - 40px) / 4) / 1.6);
+    }
+    .tile.tile-128 .tile-inner,
+    .tile.tile-256 .tile-inner,
+    .tile.tile-512 .tile-inner {
+        font-size: calc(((100vw - 40px) / 4) / 2);
+    }
+    .tile.tile-1024 .tile-inner,
+    .tile.tile-2048 .tile-inner {
+        font-size: calc(((100vw - 40px) / 4) / 2.5);
+    }
+    .tile.tile-super .tile-inner {
+        font-size: calc(((100vw - 40px) / 4) / 3);
+    }
+
+    /* Ensure game message font scales properly */
+    .game-container .game-message p {
+        font-size: calc((100vw - 40px) / 5);
+        height: auto;
+        line-height: 1.2;
+        margin-top: calc((100vw - 40px) / 10);
+    }
+    .game-container .game-message .lower {
+        margin-top: 0 !important;
+    }
+}
+</style>
+
+  
+<script>
+// GLOBALS, GLOBALS, BODGE ALL THE GLOBALS
+var external_score; 
+var tile_contents = ["","","","","","","","","","","",""];
+
+var external_score; // yep, this is a bodge
+
+function tweet() {
+  // This function is intentionally left empty to prevent errors after cleanup
+}
+
+function facebook() {
+  // This function is intentionally left empty to prevent errors after cleanup
+}
+
+var sizes = [];
+function resizeTextOn(whichelement) {
+
+  if (typeof sizes[whichelement] == "undefined") {
+
+    //console.log("Performing hard maths on " + whichelement);
+
+    $(whichelement + " .tile-inner").css("display", "block");
+    $(whichelement + " .tile-text").css("display", "inline-block");
+
+    $(whichelement + " .tile-text").css("fontSize", "60px");
+
+    while ($(whichelement + " .tile-text").width()+30 > $(whichelement + " .tile-inner").width()) {
+      var newSize = (parseInt($(whichelement + " .tile-text").css("fontSize")) - 1) + "px";
+      $(whichelement + " .tile-text").css("fontSize", newSize);
+    }
+
+    if (typeof newSize == "undefined") { var newSize = "60px"; }
+
+    $(whichelement + " .tile-text").css("lineHeight", newSize);
+
+    if (parseInt(newSize) > 50) {
+      $(whichelement + " .tile-text").css("position", "relative");
+      $(whichelement + " .tile-text").css("top", "5px");
+    } else {
+      $(whichelement + " .tile-text").css("position", "relative");
+      $(whichelement + " .tile-text").css("top", "0px");
+    }
+
+    $(whichelement + " .tile-inner").css("display", "table");
+    $(whichelement + " .tile-text").css("display", "table-cell");
+
+    sizes[whichelement] = newSize;
+
+  } else {
+
+    newSize = sizes[whichelement];
+
+    $(whichelement + " .tile-text").css("fontSize", newSize);
+    $(whichelement + " .tile-text").css("lineHeight", newSize);
+
+    if (parseInt(newSize) > 50) {
+      $(whichelement + " .tile-text").css("position", "relative");
+      $(whichelement + " .tile-text").css("top", "5px");
+    } else {
+      $(whichelement + " .tile-text").css("position", "relative");
+      $(whichelement + " .tile-text").css("top", "0px");
+    }
+
+    $(whichelement + " .tile-inner").css("display", "table");
+    $(whichelement + " .tile-text").css("display", "table-cell");
+
+  }
+
+  //console.log(sizes);
+
+}
+
+$(document).keypress(function(event) {
+  if ( event.which == 61 ) {
+    $(".tile-container").empty();
+    var tile = new Tile({x:0,y:0},2);
+    HTMLActuator.prototype.addTile(tile);
+    var tile = new Tile({x:1,y:0},4);
+    HTMLActuator.prototype.addTile(tile);
+    var tile = new Tile({x:2,y:0},8);
+    HTMLActuator.prototype.addTile(tile);
+    var tile = new Tile({x:3,y:0},16);
+    HTMLActuator.prototype.addTile(tile);
+    var tile = new Tile({x:0,y:1},32);
+    HTMLActuator.prototype.addTile(tile);
+    var tile = new Tile({x:1,y:1},64);
+    HTMLActuator.prototype.addTile(tile);
+    var tile = new Tile({x:2,y:1},128);
+    HTMLActuator.prototype.addTile(tile);
+    var tile = new Tile({x:3,y:1},256);
+    HTMLActuator.prototype.addTile(tile);
+    var tile = new Tile({x:0,y:2},512);
+    HTMLActuator.prototype.addTile(tile);
+    var tile = new Tile({x:1,y:2},1024);
+    HTMLActuator.prototype.addTile(tile);
+    var tile = new Tile({x:2,y:2},2048);
+    HTMLActuator.prototype.addTile(tile);
+  }
+});
+
+</script>
+
+<style>
+@media (min-width: 800px) {
+  .sharer {
+         -moz-column-count: 2;
+         -moz-column-gap: 20px;
+         -webkit-column-count: 2;
+         -webkit-column-gap: 20px;
+         
+  }
+  .sharer a { color: #0000cc; }
+}
+@media (max-width: 800px) {
+  .sharer {
+    padding: 0 10px;
+  }
+  .sharer a { color: #0000cc; }
+}
+
+</style>
