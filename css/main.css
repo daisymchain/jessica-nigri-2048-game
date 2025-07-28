@@ -1141,3 +1141,11 @@ body {
   margin: 0;                /* reset any weird margins */
   text-align: center;       /* ensure text inside is centered */
 }
+
+/* >>> new desktop flex for your header container */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* optional: max-width, margin, padding to taste */
+}
