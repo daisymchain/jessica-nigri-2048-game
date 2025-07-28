@@ -123,7 +123,7 @@ h1.title {
     #makeyourown a { color: white; }
     
 .scores-container {
-  float: right;
+  float: none;
   text-align: right; }
 
 .score-container, .best-container {
@@ -1088,8 +1088,56 @@ body {
   .sharer a { color: #0000cc; }
 }
 
-.container::after {
-  content: "";
-  display: table;
-  clear: both;
+/* Container for title + scoreboard */
+.game-header {
+  max-width: 500px;         /* match your game width */
+  margin: 0 auto 20px;      /* center horizontally + bottom spacing */
+  padding: 0 10px;          /* side padding on small screens */
+  box-sizing: border-box;
+  text-align: center;       /* fallback centering */
+}
+
+/* Lay out score boxes side by side, centered */
+.scores-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;                /* space between score & best */
+  margin-top: 10px;         /* space below title */
+}
+
+/* Reset old float/position hacks */
+.score-container,
+.best-container {
+  float: none !important;
+  position: static !important;
+}
+
+/* 1. Turn the header into a vertical flex container */
+.game-header {
+  display: flex;
+  flex-direction: column;   /* stack title above scores */
+  align-items: center;      /* center children horizontally */
+  max-width: 500px;         /* match your board width */
+  margin: 0 auto 20px;      /* center on page + bottom gap */
+  padding: 0 10px;          /* small side padding on mobile */
+  box-sizing: border-box;
+}
+
+/* 2. Score row stays a flex row, centered by default */
+.scores-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 10px;               /* space between score & best */
+  margin-top: 10px;        /* spacing under the title */
+}
+
+/* 3. Nuke any stray floats/positions */
+.title,
+.score-container,
+.best-container {
+  float: none !important;
+  position: static !important;
+  margin: 0;                /* reset any weird margins */
+  text-align: center;       /* ensure text inside is centered */
 }
