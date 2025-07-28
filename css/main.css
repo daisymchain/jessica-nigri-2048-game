@@ -1088,7 +1088,8 @@ body {
   .sharer a { color: #0000cc; }
 }
 
-.scores-container {
-  position: relative;
-  z-index: 10;
+.container::after {
+  content: "";
+  display: table;
+  clear: both;
 }
