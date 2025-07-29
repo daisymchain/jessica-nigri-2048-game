@@ -3,23 +3,28 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <title>2048: Jessica Nigri Edition</title>
-  <link href="css/main.css" rel="stylesheet" type="text/css">
-  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+  <link href="main.css" rel="stylesheet" type="text/css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <!-- Your game's JavaScript files -->
   <script src="js/jquery.min.js"></script>
+  <script src="js/glom.js"></script>
 </head>
 <body>
-  <div class="game-wrapper"> <div class="header-section"> <h1 class="title thisistext">2048:<br>Jessica Nigri</h1>
-      
-      <div class="scores-container"> <div class="score-container">0</div>
+  <div class="game-wrapper">
+    <div class="header-section">
+      <h1 class="title thisistext">2048:<br>Jessica Nigri</h1>
+      <div class="scores-container">
+        <div class="score-container">0</div>
         <div class="best-container">0</div>
       </div>
     </div>
 
-    <div class="game-container"> <div class="game-message">
+    <div class="game-container">
+      <div class="game-message">
         <p></p>
         <div class="lower">
-	        <a class="tweet">Tweet your score</a>
-	        <a class="facebook">Share on Facebook</a>
+          <a class="tweet">Tweet your score</a>
+          <a class="facebook">Share on Facebook</a>
           <a class="retry-button">Try again</a>
         </div>
       </div>
@@ -51,97 +56,24 @@
         </div>
       </div>
 
-      <div class="tile-container"><div class="tile tile-2 tile-position-1-4 tile-new"><div class="tile-inner" style="display: table;"><div class="tile-text" style="display: table-cell; font-size: 60px; line-height: 60px; position: relative; top: 5px;"></div></div></div><div class="tile tile-2 tile-position-3-2 tile-new"><div class="tile-inner" style="display: table;"><div class="tile-text" style="font-size: 60px; line-height: 60px; position: relative; top: 5px; display: table-cell;"></div></div></div></div>
+      <div class="tile-container">
+        <!-- Example tiles (these would be added/removed by your game logic) -->
+        <div class="tile tile-2 tile-position-1-4"><div class="tile-inner"><div class="tile-text">2</div></div></div>
+        <div class="tile tile-4 tile-position-3-2"><div class="tile-inner"><div class="tile-text">4</div></div></div>
+      </div>
     </div>
 
     <p class="game-explanation">
       <strong class="important">How to play:</strong> Use your <strong>arrow keys</strong> to move the tiles.<br>When two identical tiles touch, they merge and become the next level of tile. Get a tile to the eleventh level to win.
     </p>
   </div>
-  
-  <script src="js/glom.js"></script>
+
+  <!-- Placeholder for your game logic scripts -->
   <script>
-    // GLOBALS, GLOBALS, BODGE ALL THE GLOBALS
-    var external_score;
-    var tile_contents = ["","","","","","","","","","","",""];
-
-    var external_score; // yep, this is a bodge
-
-    function tweet() {
-      // This function is intentionally left empty to prevent errors after cleanup
-    }
-
-    function facebook() {
-      // This function is intentionally left empty to prevent errors after cleanup
-    }
-
-    var sizes = [];
-    function resizeTextOn(whichelement) {
-      if (typeof sizes[whichelement] == "undefined") {
-        //console.log("Performing hard maths on " + whichelement);
-        $(whichelement + " .tile-inner").css("display", "block");
-        $(whichelement + " .tile-text").css("display", "inline-block");
-        $(whichelement + " .tile-text").css("fontSize", "60px");
-        while ($(whichelement + " .tile-text").width()+30 > $(whichelement + " .tile-inner").width()) {
-          var newSize = (parseInt($(whichelement + " .tile-text").css("fontSize")) - 1) + "px";
-          $(whichelement + " .tile-text").css("fontSize", newSize);
-        }
-        if (typeof newSize == "undefined") { var newSize = "60px"; }
-        $(whichelement + " .tile-text").css("lineHeight", newSize);
-        if (parseInt(newSize) > 50) {
-          $(whichelement + " .tile-text").css("position", "relative");
-          $(whichelement + " .tile-text").css("top", "5px");
-        } else {
-          $(whichelement + " .tile-text").css("position", "relative");
-          $(whichelement + " .tile-text").css("top", "0px");
-        }
-        $(whichelement + " .tile-inner").css("display", "table");
-        $(whichelement + " .tile-text").css("display", "table-cell");
-        sizes[whichelement] = newSize;
-      } else {
-        newSize = sizes[whichelement];
-        $(whichelement + " .tile-text").css("fontSize", newSize);
-        $(whichelement + " .tile-text").css("lineHeight", newSize);
-        if (parseInt(newSize) > 50) {
-          $(whichelement + " .tile-text").css("position", "relative");
-          $(whichelement + " .tile-text").css("top", "5px");
-        } else {
-          $(whichelement + " .tile-text").css("position", "relative");
-          $(whichelement + " .tile-text").css("top", "0px");
-        }
-        $(whichelement + " .tile-inner").css("display", "table");
-        $(whichelement + " .tile-text").css("display", "table-cell");
-      }
-      //console.log(sizes);
-    }
-
-    $(document).keypress(function(event) {
-      if ( event.which == 61 ) {
-        $(".tile-container").empty();
-        var tile = new Tile({x:0,y:0},2);
-        HTMLActuator.prototype.addTile(tile);
-        var tile = new Tile({x:1,y:0},4);
-        HTMLActuator.prototype.addTile(tile);
-        var tile = new Tile({x:2,y:0},8);
-        HTMLActuator.prototype.addTile(tile);
-        var tile = new Tile({x:3,y:0},16);
-        HTMLActuator.prototype.addTile(tile);
-        var tile = new Tile({x:0,y:1},32);
-        HTMLActuator.prototype.addTile(tile);
-        var tile = new Tile({x:1,y:1},64);
-        HTMLActuator.prototype.addTile(tile);
-        var tile = new Tile({x:2,y:1},128);
-        HTMLActuator.prototype.addTile(tile);
-        var tile = new Tile({x:3,y:1},256);
-        HTMLActuator.prototype.addTile(tile);
-        var tile = new Tile({x:0,y:2},512);
-        HTMLActuator.prototype.addTile(tile);
-        var tile = new Tile({x:1,y:2},1024);
-        HTMLActuator.prototype.addTile(tile);
-        var tile = new Tile({x:2,y:2},2048);
-        HTMLActuator.prototype.addTile(tile);
-      }
-    });
+    // Example dummy functions to prevent errors if original JS is missing
+    function tweet() { console.log('Tweet functionality not implemented.'); }
+    function facebook() { console.log('Facebook functionality not implemented.'); }
+    var external_score = 0; // Dummy variable
   </script>
 </body>
 </html>
