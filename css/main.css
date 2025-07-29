@@ -1149,3 +1149,39 @@ body {
   align-items: center;
   /* optional: max-width, margin, padding to taste */
 }
+
+/* --- SHRINK & CENTER HEADER + SCORES --- */
+.container {
+  /* kill the fixed 500px width and let it size to its contents */
+  width: auto !important;
+  max-width: none !important;
+
+  /* make it shrink-to-fit and stack title above scores */
+  display: inline-flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+
+  /* center it on the page and add some breathing room */
+  margin: 20px auto 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+
+  /* allow touches to pass through empty header space */
+  pointer-events: none !important;
+}
+
+/* but keep pointer events on the actual children */
+.container > .title,
+.container > .scores-container {
+  pointer-events: auto !important;
+}
+
+/* center the score boxes under the title */
+.scores-container {
+  float: none !important;
+  display: inline-flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 10px !important;
+  margin-top: 10px !important;
+}
