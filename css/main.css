@@ -3,11 +3,12 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background: #faf8ef;
+  background-color: #faf8ef; /* Use a solid color as fallback if image fails */
   color: #776e65;
   font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
   font-size: 18px;
-  background-image: url('http://www.2048-jessicanigri.com/tile.jpg') !important;
+  /* Removed external background-image URL. If you want a background image,
+     please host it locally and use a relative path like url('../img/tile.jpg') */
   background-size: cover;
   background-attachment: fixed;
 }
@@ -32,7 +33,7 @@ body {
 }
 
 /* Header Section (Contains Title and Scores) */
-.header-section { /* This is the new class for the container of Title and Scores */
+.header-section {
   display: flex;
   justify-content: space-between; /* Space out title and scores */
   align-items: flex-start; /* Align items to the top */
@@ -46,9 +47,10 @@ body {
   font-weight: bold;
   margin: 0;
   display: block;
-  line-height: 1;
+  line-height: 1.2; /* Slightly increased line height for better spacing */
   color: #776e65;
-  white-space: nowrap;
+  white-space: normal; /* Allow text to wrap if necessary, relying on <br> */
+  text-align: center; /* Ensure text inside the h1 is centered */
 }
 
 /* Scores Container */
@@ -107,7 +109,6 @@ body {
 
 /* Game Message (Win/Lose Overlay) */
 .game-message {
-  display: none; /* Hidden by default, shown by JavaScript */
   position: absolute;
   top: 0;
   right: 0;
@@ -116,13 +117,16 @@ body {
   background: rgba(255, 255, 255, 0.9);
   z-index: 100;
   text-align: center;
-  font-size: 60px;
+  font-size: 60px; /* Default font for message text */
   font-weight: bold;
   color: #776e65;
-  display: flex;
+  /* These next three lines are for when it *is* displayed. */
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  /* This must be the final 'display' property if it's hidden by default,
+     otherwise 'display:flex' will override 'display:none' */
+  display: none; /* Hidden by default, shown by JavaScript */
 }
 
 .game-message p {
@@ -138,8 +142,11 @@ body {
   margin-top: 100px; /* May need adjustment */
 }
 
+/* Styling for the buttons within game-message */
 .game-message a.retry-button,
-.game-message a.keep-playing-button { /* Combined similar button styles */
+.game-message a.keep-playing-button,
+.game-message a.tweet, /* Included the other links */
+.game-message a.facebook { /* Included the other links */
   display: inline-block;
   background: #8f7a66;
   border-radius: 3px;
@@ -150,6 +157,7 @@ body {
   line-height: 42px;
   cursor: pointer;
   margin-left: 9px;
+  font-size: 20px; /* Explicitly set font size for buttons */
 }
 
 /* Grid Container and Cells */
@@ -158,8 +166,8 @@ body {
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
   gap: 15px; /* Space between cells */
-  background: #bbada0; /* This seems redundant as game-container already sets it */
-  border-radius: 6px; /* This also seems redundant */
+  background: #bbada0;
+  border-radius: 6px;
 }
 
 .grid-row {
@@ -242,35 +250,32 @@ body {
   color: #f9f6f2;
 }
 
-/* Tile Position Transformations */
-/* Adjusted to use 15px gap for consistency */
-.tile-position-1-1 { transform: translate(0, 0); }
-.tile-position-2-1 { transform: translate(calc(1 * (var(--tile-size) + 15px)), 0); }
-.tile-position-3-1 { transform: translate(calc(2 * (var(--tile-size) + 15px)), 0); }
-.tile-position-4-1 { transform: translate(calc(3 * (var(--tile-size) + 15px)), 0); }
-
-.tile-position-1-2 { transform: translate(0, calc(1 * (var(--tile-size) + 15px))); }
-.tile-position-2-2 { transform: translate(calc(1 * (var(--tile-size) + 15px)), calc(1 * (var(--tile-size) + 15px))); }
-.tile-position-3-2 { transform: translate(calc(2 * (var(--tile-size) + 15px)), calc(1 * (var(--tile-size) + 15px))); }
-.tile-position-4-2 { transform: translate(calc(3 * (var(--tile-size) + 15px)), calc(1 * (var(--tile-size) + 15px))); }
-
-.tile-position-1-3 { transform: translate(0, calc(2 * (var(--tile-size) + 15px))); }
-.tile-position-2-3 { transform: translate(calc(1 * (var(--tile-size) + 15px)), calc(2 * (var(--tile-size) + 15px))); }
-.tile-position-3-3 { transform: translate(calc(2 * (var(--tile-size) + 15px)), calc(2 * (var(--tile-size) + 15px))); }
-.tile-position-4-3 { transform: translate(calc(3 * (var(--tile-size) + 15px)), calc(2 * (var(--tile-size) + 15px))); }
-
-.tile-position-1-4 { transform: translate(0, calc(3 * (var(--tile-size) + 15px))); }
-.tile-position-2-4 { transform: translate(calc(1 * (var(--tile-size) + 15px)), calc(3 * (var(--tile-size) + 15px))); }
-.tile-position-3-4 { transform: translate(calc(2 * (var(--tile-size) + 15px)), calc(3 * (var(--tile-size) + 15px))); }
-.tile-position-4-4 { transform: translate(calc(3 * (var(--tile-size) + 15px)), calc(3 * (var(--tile-size) + 15px))); }
-
 /* Define --tile-size for easier calculation - add this to :root or .game-container */
-/* For best results, calculate this based on game-container width and gap */
 :root {
   --grid-gap: 15px; /* Define a CSS variable for the gap */
-  --tile-size: calc((500px - (2 * var(--grid-gap)) - (2 * 15px)) / 4); /* Rough calculation, adjust as needed */
+  --tile-size: calc((500px - (2 * var(--grid-gap)) - (2 * 15px)) / 4); /* Rough calculation for desktop */
 }
-/* A more robust way to define tile-size in JS or based on actual game-container width */
+
+/* Tile Position Transformations (Adjusted to use CSS variables) */
+.tile-position-1-1 { transform: translate(0, 0); }
+.tile-position-2-1 { transform: translate(calc(1 * (var(--tile-size) + var(--grid-gap))), 0); }
+.tile-position-3-1 { transform: translate(calc(2 * (var(--tile-size) + var(--grid-gap))), 0); }
+.tile-position-4-1 { transform: translate(calc(3 * (var(--tile-size) + var(--grid-gap))), 0); }
+
+.tile-position-1-2 { transform: translate(0, calc(1 * (var(--tile-size) + var(--grid-gap)))); }
+.tile-position-2-2 { transform: translate(calc(1 * (var(--tile-size) + var(--grid-gap))), calc(1 * (var(--tile-size) + var(--grid-gap)))); }
+.tile-position-3-2 { transform: translate(calc(2 * (var(--tile-size) + var(--grid-gap))), calc(1 * (var(--tile-size) + var(--grid-gap)))); }
+.tile-position-4-2 { transform: translate(calc(3 * (var(--tile-size) + var(--grid-gap))), calc(1 * (var(--tile-size) + var(--grid-gap)))); }
+
+.tile-position-1-3 { transform: translate(0, calc(2 * (var(--tile-size) + var(--grid-gap)))); }
+.tile-position-2-3 { transform: translate(calc(1 * (var(--tile-size) + var(--grid-gap))), calc(2 * (var(--tile-size) + var(--grid-gap)))); }
+.tile-position-3-3 { transform: translate(calc(2 * (var(--tile-size) + var(--grid-gap))), calc(2 * (var(--tile-size) + var(--grid-gap)))); }
+.tile-position-4-3 { transform: translate(calc(3 * (var(--tile-size) + var(--grid-gap))), calc(2 * (var(--tile-size) + var(--grid-gap)))); }
+
+.tile-position-1-4 { transform: translate(0, calc(3 * (var(--tile-size) + var(--grid-gap)))); }
+.tile-position-2-4 { transform: translate(calc(1 * (var(--tile-size) + var(--grid-gap))), calc(3 * (var(--tile-size) + var(--grid-gap)))); }
+.tile-position-3-4 { transform: translate(calc(2 * (var(--tile-size) + var(--grid-gap))), calc(3 * (var(--tile-size) + var(--grid-gap)))); }
+.tile-position-4-4 { transform: translate(calc(3 * (var(--tile-size) + var(--grid-gap))), calc(3 * (var(--tile-size) + var(--grid-gap)))); }
 
 
 /* New tile animation */
@@ -303,7 +308,7 @@ body {
     transform: scale(1.2);
   }
   100% {
-    transform: scale(1);
+    transform: 1;
   }
 }
 
@@ -333,7 +338,6 @@ body {
     text-align: center;
 }
 
-
 /* Responsiveness (Media Queries) */
 @media screen and (max-width: 520px) {
   /* Adjust game-wrapper padding for smaller screens */
@@ -351,6 +355,8 @@ body {
   .title {
     font-size: 50px;
     margin-bottom: 10px;
+    line-height: 1.2; /* Consistent line height */
+    text-align: center; /* Ensure text inside the h1 is centered */
   }
 
   .scores-container {
@@ -410,7 +416,7 @@ body {
 
   /* Ensure game message font scales properly */
   .game-message p {
-    font-size: calc((100vw - 40px) / 5);
+    font-size: 40px; /* Adjusted to a more sensible size for mobile */
     height: auto;
     line-height: 1.2;
     margin-top: calc((100vw - 40px) / 10);
