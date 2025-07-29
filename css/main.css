@@ -6,8 +6,6 @@ html, body {
   background-color: #faf8ef;
   color: #776e65;
   font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
-  /* Removed external background-image URL. If you want a background image,
-     please host it locally and use a relative path like url('../img/tile.jpg') */
   background-size: cover;
   background-attachment: fixed;
 }
@@ -141,18 +139,23 @@ body {
   width: calc(25% - 8px);
   height: calc(25% - 8px);
   border-radius: 3px;
-  background: #eee4da; /* Default tile background */
+  /* Default background if no specific tile class matches */
+  background: #eee4da;
+  background-size: cover; /* Ensure image covers the tile */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent image repetition */
+
   display: flex; /* Use flexbox to center content */
   justify-content: center;
   align-items: center;
   font-weight: bold;
-  color: #776e65;
+  color: #776e65; /* Default text color, overridden by specific tile classes */
   /* Smooth transitions for movement and color changes */
   transition: transform 0.1s ease-in-out, background-color 0.1s ease-in-out;
   box-sizing: border-box;
 }
 
-/* Tile inner content */
+/* Tile inner content - no longer needed for background image, but kept for text centering */
 .tile-inner {
   display: flex; /* Use flexbox for centering text */
   justify-content: center;
@@ -168,20 +171,22 @@ body {
   line-height: 1; /* Ensure single line */
   text-align: center;
   white-space: nowrap; /* Prevent text wrapping */
+  /* Text color for tile numbers */
+  color: #776e65; /* Default text color, overridden by specific tile classes */
 }
 
-/* Tile specific colors and font sizes (these would be applied by JS) */
-.tile-2 .tile-inner { background: #eee4da; }
-.tile-4 .tile-inner { background: #ede0c8; }
-.tile-8 .tile-inner { background: #f2b179; color: #f9f6f2; }
-.tile-16 .tile-inner { background: #f59563; color: #f9f6f2; }
-.tile-32 .tile-inner { background: #f67c5f; color: #f9f6f2; }
-.tile-64 .tile-inner { background: #f65e3b; color: #f9f6f2; }
-.tile-128 .tile-inner { background: #edcf72; color: #f9f6f2; }
-.tile-256 .tile-inner { background: #edcc61; color: #f9f6f2; }
-.tile-512 .tile-inner { background: #edc850; color: #f9f6f2; }
-.tile-1024 .tile-inner { background: #edc53f; color: #f9f6f2; }
-.tile-2048 .tile-inner { background: #edc22e; color: #f9f6f2; }
+/* Tile specific images and text colors */
+.tile-2 { background-image: url('Images/tile-2.gif'); }
+.tile-4 { background-image: url('Images/tile-4.gif'); }
+.tile-8 { background-image: url('Images/tile-8.webp'); color: #f9f6f2; } /* Note: tile-8 is webp */
+.tile-16 { background-image: url('Images/tile-16.gif'); color: #f9f6f2; }
+.tile-32 { background-image: url('Images/tile-32.gif'); color: #f9f6f2; }
+.tile-64 { background-image: url('Images/tile-64.gif'); color: #f9f6f2; }
+.tile-128 { background-image: url('Images/tile-128.gif'); color: #f9f6f2; }
+.tile-256 { background-image: url('Images/tile-256.gif'); color: #f9f6f2; }
+.tile-512 { background-image: url('Images/tile-512.gif'); color: #f9f6f2; }
+.tile-1024 { background-image: url('Images/tile-1024.gif'); color: #f9f6f2; }
+.tile-2048 { background-image: url('Images/tile-2048.gif'); color: #f9f6f2; }
 
 /* Adjust font sizes for larger tile numbers to fit */
 .tile-128 .tile-text,
