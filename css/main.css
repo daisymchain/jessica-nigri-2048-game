@@ -1,1224 +1,460 @@
+/* General Body and HTML Styling */
 html, body {
+  height: 100%;
   margin: 0;
   padding: 0;
   background: #faf8ef;
   color: #776e65;
   font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
-  font-size: 18px; }
-
-.row {margin-left:0px; margin-right:0px;}
-
-#uvt_box { margin-top: 30px; }
-
-.game-intro {text-align:center;}
-
-.heading h1 {padding-top:25px;padding-bottom:25px; text-align: center; }
-
-/* GLOBAL STYLES (for desktop and general layout) */
-.game-container {
-    max-width: 500px; /* Set a maximum width for desktop, adjust as needed */
-    margin: 40px auto; /* Centers the game-container horizontally on desktop and adds top/bottom margin */
-    /* Add any other global properties that apply to game-container on both desktop and mobile here,
-       unless they are specifically overridden in the mobile media query with !important. */
-    position: relative;
-    padding: 15px; /* A default padding, can be adjusted or overridden by mobile query */
-    cursor: default;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    background: #bbada0;
-    border-radius: 6px;
-    -ms-touch-action: none;
-    -webkit-box-sizing: border-box; /* Crucial for consistent box model */
-    -moz-box-sizing: border-box;
-    box-sizing: border-box; /* This should be here globally */
+  font-size: 18px;
+  background-image: url('http://www.2048-jessicanigri.com/tile.jpg') !important;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
-/* lol !important */
-.tile-inner { background-position: center center !important; background-size: cover !important; background-repeat: no-repeat !important; }
-
-/* Your existing tile background images (make sure these are all correct from previous fixes) */
-.tile-2 .tile-inner { background-image: url(../Images/tile-2.gif) !important; }
-.tile-4 .tile-inner { background-image: url(../Images/tile-4.gif) !important; }
-.tile-8 .tile-inner { background-image: url(../Images/tile-8.webp) !important; }
-.tile-16 .tile-inner { background-image: url(../Images/tile-16.gif) !important; }
-.tile-32 .tile-inner { background-image: url(../Images/tile-32.gif) !important; }
-.tile-64 .tile-inner { background-image: url(../Images/tile-64.gif) !important; }
-.tile-128 .tile-inner { background-image: url(../Images/tile-128.gif) !important; }
-.tile-256 .tile-inner { background-image: url(../Images/tile-256.gif) !important; }
-.tile-512 .tile-inner { background-image: url(../Images/tile-512.gif) !important; }
-.tile-1024 .tile-inner { background-image: url(../Images/tile-1024.gif) !important; }
-.tile-2048 .tile-inner { background-image: url(../Images/tile-2048.gif) !important; }
-
-/* Existing text/color rules if any */
-.thisistext, p, a, h1 { color: #ba17d1; }
-.game-container { background-color: #c19bea }
-
-@media (max-width:500px) {
-  #uvt_box { margin-top: 20px !important; }
-  .padsm { padding-top:30px;}
-  .heading h1 {padding-top:0px;padding-bottom:0px;}
-  .col-sm-8 {
-    padding-left: 0px;
-    padding-right:0px;
-  }
-  .container {padding:0px;}
-  p {padding:10px;}
-}
-
-#uvt_credits { z-index: 9001; }
-  form { margin: 0; padding: 0; }
 body {
-  margin: 80px 0; }
+  font-weight: 300;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 
-  #fix { 
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%; position: fixed; z-index: -1000; 
-  }
-  
-.heading:after {
-  content: "";
-  display: block;
-  clear: both; }
+/* Game Wrapper (Overall container for header + game + explanation) */
+.game-wrapper {
+  display: flex;
+  flex-direction: column; /* Stack header, game, and explanation vertically */
+  align-items: center;   /* Center children horizontally */
+  width: 100%;
+  max-width: 500px; /* Constrain max width for desktop screens */
+  padding: 20px; /* Add some padding around the whole game */
+  box-sizing: border-box;
+}
 
-h1.title {
-  font-size: 40px;
-  line-height: 40px;
+/* Header Section (Contains Title and Scores) */
+.header-section { /* This is the new class for the container of Title and Scores */
+  display: flex;
+  justify-content: space-between; /* Space out title and scores */
+  align-items: flex-start; /* Align items to the top */
+  width: 100%; /* Take full width of its parent (.game-wrapper) */
+  margin-bottom: 20px; /* Space between header and game board */
+}
+
+/* Title Styling */
+.title {
+  font-size: 80px;
   font-weight: bold;
   margin: 0;
-  padding-bottom: 0;
   display: block;
-  text-shadow: 1px 1px #999; 
-  }
-  
+  line-height: 1;
+  color: #776e65;
+  white-space: nowrap;
+}
 
-
-@-webkit-keyframes move-up {
-  0% {
-    top: 25px;
-    opacity: 1; }
-
-  100% {
-    top: -50px;
-    opacity: 0; } }
-
-@-moz-keyframes move-up {
-  0% {
-    top: 25px;
-    opacity: 1; }
-
-  100% {
-    top: -50px;
-    opacity: 0; } }
-
-@keyframes move-up {
-  0% {
-    top: 25px;
-    opacity: 1; }
-
-  100% {
-    top: -50px;
-    opacity: 0; } }
-
-    #makeyourown { text-align: center;background: #bbada0;color: white; border-radius: 3px; padding: 10px; }
-    #makeyourown a { color: white; }
-    
+/* Scores Container */
 .scores-container {
-  float: none;
-  text-align: right; }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px; /* Space between score boxes */
+}
 
-.score-container, .best-container {
+.score-container,
+.best-container {
   position: relative;
   display: inline-block;
   background: #bbada0;
   padding: 15px 25px;
   font-size: 25px;
-/*  height: 25px;*/
-  line-height: 1;
   font-weight: bold;
   border-radius: 3px;
   color: white;
-  margin-top: 8px;
   text-align: center;
-  box-sizing: border-box; /* IMPORTANT: Ensures padding is included in the element's total dimensions */  }
-
-  .score-container:after, .best-container:after {
-    position: absolute;
-    width: 100%;
-    top: 15px;
-    left: 0;
-    text-transform: uppercase;
-    font-size: 13px;
-    line-height: 13px; /* Ensures line-height matches font-size for this label */
-    text-align: center;
-    color: #eee4da; }
-    
-  .score-container .score-addition, .best-container .score-addition {
-    position: absolute;
-    right: 30px;
-    color: red;
-    font-size: 25px;
-    line-height: 25px;
-    font-weight: bold;
-    color: rgba(119, 110, 101, 0.9);
-    z-index: 100;
-    -webkit-animation: move-up 600ms ease-in;
-    -moz-animation: move-up 600ms ease-in;
-    animation: move-up 600ms ease-in;
-    -webkit-animation-fill-mode: both;
-    -moz-animation-fill-mode: both;
-    animation-fill-mode: both; }
-
-.score-container:after {
-  content: "Score"; }
+}
 
 .best-container:after {
-  content: "Best"; }
+  content: "Best";
+  position: absolute;
+  width: 100%;
+  left: 0;
+  font-size: 13px;
+  font-weight: 300;
+  top: 9px;
+  text-transform: uppercase;
+}
 
-p {
-  margin-top: 0;
-  margin-bottom: 10px;
-  line-height: 1.65; }
+.score-container:after {
+  content: "Score";
+  position: absolute;
+  width: 100%;
+  left: 0;
+  font-size: 13px;
+  font-weight: 300;
+  top: 9px;
+  text-transform: uppercase;
+}
 
-a {
-  color: #776e65;
-  font-weight: bold;
-  text-decoration: underline;
-  cursor: pointer; }
-
-strong.important {
-  text-transform: uppercase; }
-
-hr {
-  border: none;
-  border-bottom: 1px solid #d8d4d0;
-  margin-top: 20px;
-  margin-bottom: 30px; }
-
-  #credit { text-align: center; margin-top: 10px; padding-top: 0; }
-  
-.container {
-  width: 500px;
-  margin: 0 auto; }
-
-@-webkit-keyframes fade-in {
-  0% {
-    opacity: 0; }
-
-  100% {
-    opacity: 1; } }
-
-@-moz-keyframes fade-in {
-  0% {
-    opacity: 0; }
-
-  100% {
-    opacity: 1; } }
-
-@keyframes fade-in {
-  0% {
-    opacity: 0; }
-
-  100% {
-    opacity: 1; } }
-
+/* Game Container (The actual game board) */
 .game-container {
-  margin-top: 40px;
   position: relative;
-  padding: 15px;
-  cursor: default;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
   background: #bbada0;
   border-radius: 6px;
-  width: 500px;
-  height: 500px;
-  -ms-touch-action: none;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box; }
-  .game-container .game-message {
-    display: none;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: rgba(238, 228, 218, 0.5);
-    z-index: 100;
-    text-align: center;
-    -webkit-animation: fade-in 800ms ease 1200ms;
-    -moz-animation: fade-in 800ms ease 1200ms;
-    animation: fade-in 800ms ease 1200ms;
-    -webkit-animation-fill-mode: both;
-    -moz-animation-fill-mode: both;
-    animation-fill-mode: both; }
-    .game-container .game-message p {
-      font-size: 60px;
-      font-weight: bold;
-      height: 60px;
-      line-height: 60px;
-      margin-top: 122px; }
-    .game-container .game-message .lower {
-      display: block;
-      margin: 15px 0; }
-         .game-container .game-message iframe { 
-      
-  width: 48% !important;
-  display: block;
-  margin: 0 auto 5px;
-  
-    }
-    .game-container .game-message a {
-      display: inline-block;
-      background: #8f7a66;
-      border-radius: 3px;
-      padding: 0 20px;
-      text-decoration: none;
-      color: #f9f6f2;
-      height: 40px;
-      line-height: 42px;
-      margin-left: 9px; }
-      .game-container .game-message a.keep-playing-button {
-        display: none; }
-    .game-container .game-message .score-sharing {
-      display: inline-block;
-      vertical-align: middle;
-      margin-left: 10px; }
-    .game-container .game-message.game-won {
-      background: rgba(237, 194, 46, 0.5);
-      color: #f9f6f2; }
-      .game-container .game-message.game-won a.keep-playing-button {
-        display: inline-block; }
-    .game-container .game-message.game-won, .game-container .game-message.game-over {
-      display: block; }
+  width: 100%; /* Take full width of its parent (.game-wrapper) */
+  padding: 15px;
+  box-sizing: border-box;
+  touch-action: none; /* Disable default touch actions to allow custom swipe */
+}
 
-.grid-container {
+/* Game Message (Win/Lose Overlay) */
+.game-message {
+  display: none; /* Hidden by default, shown by JavaScript */
   position: absolute;
-  z-index: 1; }
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 0.9);
+  z-index: 100;
+  text-align: center;
+  font-size: 60px;
+  font-weight: bold;
+  color: #776e65;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-message p {
+  font-size: 60px;
+  font-weight: bold;
+  height: 60px;
+  line-height: 60px;
+  margin-top: 222px; /* May need adjustment depending on overall height */
+}
+
+.game-message .lower {
+  display: block;
+  margin-top: 100px; /* May need adjustment */
+}
+
+.game-message a.retry-button,
+.game-message a.keep-playing-button { /* Combined similar button styles */
+  display: inline-block;
+  background: #8f7a66;
+  border-radius: 3px;
+  padding: 0 20px;
+  text-decoration: none;
+  color: #f9f6f2;
+  height: 40px;
+  line-height: 42px;
+  cursor: pointer;
+  margin-left: 9px;
+}
+
+/* Grid Container and Cells */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 15px; /* Space between cells */
+  background: #bbada0; /* This seems redundant as game-container already sets it */
+  border-radius: 6px; /* This also seems redundant */
+}
 
 .grid-row {
-  margin-bottom: 15px; }
-  .grid-row:last-child {
-    margin-bottom: 0; }
-  .grid-row:after {
-    content: "";
-    display: block;
-    clear: both; }
+  display: contents; /* Allows grid-cell to be direct grid children */
+}
 
 .grid-cell {
-  width: 106.25px;
-  height: 106.25px;
-  margin-right: 15px;
-  float: left;
+  width: 100%;
+  padding-bottom: 100%; /* Creates square cells */
+  background: rgba(238, 228, 218, 0.35);
   border-radius: 3px;
-  background: rgba(238, 228, 218, 0.35); }
-  .grid-cell:last-child {
-    margin-right: 0; }
+  position: relative; /* For tile positioning */
+}
 
+/* Tile Container and Tiles */
 .tile-container {
   position: absolute;
-  z-index: 2; }
-
-.tile, .tile .tile-inner {
-  width: 107px;
-  height: 107px;
-  line-height: 116.25px; }
-.tile.tile-position-1-1 {
-  -webkit-transform: translate(0px, 0px);
-  -moz-transform: translate(0px, 0px);
-  transform: translate(0px, 0px); }
-.tile.tile-position-1-2 {
-  -webkit-transform: translate(0px, 121px);
-  -moz-transform: translate(0px, 121px);
-  transform: translate(0px, 121px); }
-.tile.tile-position-1-3 {
-  -webkit-transform: translate(0px, 242px);
-  -moz-transform: translate(0px, 242px);
-  transform: translate(0px, 242px); }
-.tile.tile-position-1-4 {
-  -webkit-transform: translate(0px, 363px);
-  -moz-transform: translate(0px, 363px);
-  transform: translate(0px, 363px); }
-.tile.tile-position-2-1 {
-  -webkit-transform: translate(121px, 0px);
-  -moz-transform: translate(121px, 0px);
-  transform: translate(121px, 0px); }
-.tile.tile-position-2-2 {
-  -webkit-transform: translate(121px, 121px);
-  -moz-transform: translate(121px, 121px);
-  transform: translate(121px, 121px); }
-.tile.tile-position-2-3 {
-  -webkit-transform: translate(121px, 242px);
-  -moz-transform: translate(121px, 242px);
-  transform: translate(121px, 242px); }
-.tile.tile-position-2-4 {
-  -webkit-transform: translate(121px, 363px);
-  -moz-transform: translate(121px, 363px);
-  transform: translate(121px, 363px); }
-.tile.tile-position-3-1 {
-  -webkit-transform: translate(242px, 0px);
-  -moz-transform: translate(242px, 0px);
-  transform: translate(242px, 0px); }
-.tile.tile-position-3-2 {
-  -webkit-transform: translate(242px, 121px);
-  -moz-transform: translate(242px, 121px);
-  transform: translate(242px, 121px); }
-.tile.tile-position-3-3 {
-  -webkit-transform: translate(242px, 242px);
-  -moz-transform: translate(242px, 242px);
-  transform: translate(242px, 242px); }
-.tile.tile-position-3-4 {
-  -webkit-transform: translate(242px, 363px);
-  -moz-transform: translate(242px, 363px);
-  transform: translate(242px, 363px); }
-.tile.tile-position-4-1 {
-  -webkit-transform: translate(363px, 0px);
-  -moz-transform: translate(363px, 0px);
-  transform: translate(363px, 0px); }
-.tile.tile-position-4-2 {
-  -webkit-transform: translate(363px, 121px);
-  -moz-transform: translate(363px, 121px);
-  transform: translate(363px, 121px); }
-.tile.tile-position-4-3 {
-  -webkit-transform: translate(363px, 242px);
-  -moz-transform: translate(363px, 242px);
-  transform: translate(363px, 242px); }
-.tile.tile-position-4-4 {
-  -webkit-transform: translate(363px, 363px);
-  -moz-transform: translate(363px, 363px);
-  transform: translate(363px, 363px); }
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  overflow: hidden; /* Ensure tiles stay within bounds */
+}
 
 .tile {
   position: absolute;
-  -webkit-transition: 100ms ease-in-out;
-  -moz-transition: 100ms ease-in-out;
-  transition: 100ms ease-in-out;
-  -webkit-transition-property: -webkit-transform;
-  -moz-transition-property: -moz-transform;
-  transition-property: transform; }
-  .tile .tile-inner {
-    border-radius: 3px;
-    background: #eee4da;
-    text-align: center;
-    font-weight: bold;
-    z-index: 10;
-    font-size: 55px; }
-  .tile.tile-2 .tile-inner {
-    background: #eee4da;
-    box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0), inset 0 0 0 1px rgba(255, 255, 255, 0); }
-  .tile.tile-4 .tile-inner {
-    background: #ede0c8;
-    box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0), inset 0 0 0 1px rgba(255, 255, 255, 0); }
-  .tile.tile-8 .tile-inner {
-    color: #f9f6f2;
-    background: #f2b179; }
-  .tile.tile-16 .tile-inner {
-    color: #f9f6f2;
-    background: #f59563; }
-  .tile.tile-32 .tile-inner {
-    color: #f9f6f2;
-    background: #f67c5f; }
-  .tile.tile-64 .tile-inner {
-    color: #f9f6f2;
-    background: #f65e3b; }
-  .tile.tile-128 .tile-inner {
-    color: #f9f6f2;
-    background: #edcf72;
-    box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.2381), inset 0 0 0 1px rgba(255, 255, 255, 0.14286);
-    font-size: 45px; }
-    @media screen and (max-width: 520px) {
-      .tile.tile-128 .tile-inner {
-        font-size: calc(((100vw - 40px) / 4) / 2); }
-  .tile.tile-256 .tile-inner {
-    color: #f9f6f2;
-    background: #edcc61;
-    box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.31746), inset 0 0 0 1px rgba(255, 255, 255, 0.19048);
-    font-size: 45px; }
-    @media screen and (max-width: 520px) {
-      .tile.tile-256 .tile-inner {
-        font-size: calc(((100vw - 40px) / 4) / 2); }
-  .tile.tile-512 .tile-inner {
-    color: #f9f6f2;
-    background: #edc850;
-    box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.39683), inset 0 0 0 1px rgba(255, 255, 255, 0.2381);
-    font-size: 45px; }
-    @media screen and (max-width: 520px) {
-      .tile.tile-512 .tile-inner {
-        font-size: calc(((100vw - 40px) / 4) / 2); } }
-  .tile.tile-1024 .tile-inner {
-    color: #f9f6f2;
-    background: #edc53f;
-    box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.47619), inset 0 0 0 1px rgba(255, 255, 255, 0.28571);
-    font-size: 35px; }
-    @media screen and (max-width: 520px) {
-      .tile.tile-1024 .tile-inner {
-        font-size: calc(((100vw - 40px) / 4) / 2.5); } }
-  .tile.tile-2048 .tile-inner {
-    color: #f9f6f2;
-    background: #edc22e;
-    box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.55556), inset 0 0 0 1px rgba(255, 255, 255, 0.33333);
-    font-size: 35px; }
-    @media screen and (max-width: 520px) {
-      .tile.tile-2048 .tile-inner {
-        font-size: calc(((100vw - 40px) / 4) / 2.5); } }
-  .tile.tile-super .tile-inner {
-    color: #f9f6f2;
-    background: #3c3a32;
-    font-size: 30px; }
-    @media screen and (max-width: 520px) {
-      .tile.tile-super .tile-inner {
-        font-size: calc(((100vw - 40px) / 4) / 3); } }
+  top: 0;
+  left: 0;
+  width: calc((100% - 3 * 15px) / 4);
+  padding-bottom: calc((100% - 3 * 15px) / 4);
+  font-weight: bold;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.15s ease-in-out;
+  color: #f9f6f2;
+  font-size: 55px; /* Default font size for tiles */
+  line-height: 1;
+}
 
-@-webkit-keyframes appear {
-  0% {
-    opacity: 0;
-    -webkit-transform: scale(0);
-    -moz-transform: scale(0);
-    transform: scale(0); }
+.tile .tile-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  background-size: cover;
+  background-position: center;
+}
 
-  100% {
-    opacity: 1;
-    -webkit-transform: scale(1);
-    -moz-transform: scale(1);
-    transform: scale(1); } }
+/* Tile Colors/Backgrounds (Value-specific) */
+.tile-2 .tile-inner { background-color: #eee4da; }
+.tile-4 .tile-inner { background-color: #ede0c8; }
+.tile-8 .tile-inner { background-color: #f2b179; }
+.tile-16 .tile-inner { background-color: #f59563; }
+.tile-32 .tile-inner { background-color: #f67c5f; }
+.tile-64 .tile-inner { background-color: #f65e3b; }
+.tile-128 .tile-inner { background-color: #edcf72; }
+.tile-256 .tile-inner { background-color: #edcc61; }
+.tile-512 .tile-inner { background-color: #edc850; }
+.tile-1024 .tile-inner { background-color: #edc53f; }
+.tile-2048 .tile-inner { background-color: #edc22e; }
 
-@-moz-keyframes appear {
-  0% {
-    opacity: 0;
-    -webkit-transform: scale(0);
-    -moz-transform: scale(0);
-    transform: scale(0); }
+/* Tile Text Color for Darker Tiles */
+.tile-8 .tile-inner,
+.tile-16 .tile-inner,
+.tile-32 .tile-inner,
+.tile-64 .tile-inner,
+.tile-128 .tile-inner,
+.tile-256 .tile-inner,
+.tile-512 .tile-inner,
+.tile-1024 .tile-inner,
+.tile-2048 .tile-inner {
+  color: #f9f6f2;
+}
 
-  100% {
-    opacity: 1;
-    -webkit-transform: scale(1);
-    -moz-transform: scale(1);
-    transform: scale(1); } }
+/* Tile Position Transformations */
+/* Adjusted to use 15px gap for consistency */
+.tile-position-1-1 { transform: translate(0, 0); }
+.tile-position-2-1 { transform: translate(calc(1 * (var(--tile-size) + 15px)), 0); }
+.tile-position-3-1 { transform: translate(calc(2 * (var(--tile-size) + 15px)), 0); }
+.tile-position-4-1 { transform: translate(calc(3 * (var(--tile-size) + 15px)), 0); }
+
+.tile-position-1-2 { transform: translate(0, calc(1 * (var(--tile-size) + 15px))); }
+.tile-position-2-2 { transform: translate(calc(1 * (var(--tile-size) + 15px)), calc(1 * (var(--tile-size) + 15px))); }
+.tile-position-3-2 { transform: translate(calc(2 * (var(--tile-size) + 15px)), calc(1 * (var(--tile-size) + 15px))); }
+.tile-position-4-2 { transform: translate(calc(3 * (var(--tile-size) + 15px)), calc(1 * (var(--tile-size) + 15px))); }
+
+.tile-position-1-3 { transform: translate(0, calc(2 * (var(--tile-size) + 15px))); }
+.tile-position-2-3 { transform: translate(calc(1 * (var(--tile-size) + 15px)), calc(2 * (var(--tile-size) + 15px))); }
+.tile-position-3-3 { transform: translate(calc(2 * (var(--tile-size) + 15px)), calc(2 * (var(--tile-size) + 15px))); }
+.tile-position-4-3 { transform: translate(calc(3 * (var(--tile-size) + 15px)), calc(2 * (var(--tile-size) + 15px))); }
+
+.tile-position-1-4 { transform: translate(0, calc(3 * (var(--tile-size) + 15px))); }
+.tile-position-2-4 { transform: translate(calc(1 * (var(--tile-size) + 15px)), calc(3 * (var(--tile-size) + 15px))); }
+.tile-position-3-4 { transform: translate(calc(2 * (var(--tile-size) + 15px)), calc(3 * (var(--tile-size) + 15px))); }
+.tile-position-4-4 { transform: translate(calc(3 * (var(--tile-size) + 15px)), calc(3 * (var(--tile-size) + 15px))); }
+
+/* Define --tile-size for easier calculation - add this to :root or .game-container */
+/* For best results, calculate this based on game-container width and gap */
+:root {
+  --grid-gap: 15px; /* Define a CSS variable for the gap */
+  --tile-size: calc((500px - (2 * var(--grid-gap)) - (2 * 15px)) / 4); /* Rough calculation, adjust as needed */
+}
+/* A more robust way to define tile-size in JS or based on actual game-container width */
+
+
+/* New tile animation */
+.tile-new {
+  animation: appear 0.2s;
+}
 
 @keyframes appear {
   0% {
     opacity: 0;
-    -webkit-transform: scale(0);
-    -moz-transform: scale(0);
-    transform: scale(0); }
-
+    transform: scale(0);
+  }
   100% {
     opacity: 1;
-    -webkit-transform: scale(1);
-    -moz-transform: scale(1);
-    transform: scale(1); } }
+    transform: scale(1);
+  }
+}
 
-.tile-new .tile-inner {
-  -webkit-animation: appear 200ms ease 100ms;
-  -moz-animation: appear 200ms ease 100ms;
-  animation: appear 200ms ease 100ms;
-  -webkit-animation-fill-mode: backwards;
-  -moz-animation-fill-mode: backwards;
-  animation-fill-mode: backwards; }
+/* Merged tile animation */
+.tile-merged {
+  z-index: 2;
+  animation: bounce 0.2s;
+}
 
-@-webkit-keyframes pop {
+@keyframes bounce {
   0% {
-    -webkit-transform: scale(0);
-    -moz-transform: scale(0);
-    transform: scale(0); }
-
+    transform: scale(1);
+  }
   50% {
-    -webkit-transform: scale(1.2);
-    -moz-transform: scale(1.2);
-    transform: scale(1.2); }
-
+    transform: scale(1.2);
+  }
   100% {
-    -webkit-transform: scale(1);
-    -moz-transform: scale(1);
-    transform: scale(1); } }
+    transform: scale(1);
+  }
+}
 
-@-moz-keyframes pop {
+/* Super tile animation */
+.tile-super {
+  z-index: 2;
+  animation: superappear 0.4s;
+}
+
+@keyframes superappear {
   0% {
-    -webkit-transform: scale(0);
-    -moz-transform: scale(0);
-    transform: scale(0); }
-
-  50% {
-    -webkit-transform: scale(1.2);
-    -moz-transform: scale(1.2);
-    transform: scale(1.2); }
-
+    opacity: 0;
+    transform: scale(0);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1.3);
+  }
   100% {
-    -webkit-transform: scale(1);
-    -moz-transform: scale(1);
-    transform: scale(1); } }
+    transform: 1;
+  }
+}
 
-@keyframes pop {
-  0% {
-    -webkit-transform: scale(0);
-    -moz-transform: scale(0);
-    transform: scale(0); }
-
-  50% {
-    -webkit-transform: scale(1.2);
-    -moz-transform: scale(1.2);
-    transform: scale(1.2); }
-
-  100% {
-    -webkit-transform: scale(1);
-    -moz-transform: scale(1);
-    transform: scale(1); } }
-
-.tile-merged .tile-inner {
-  z-index: 20;
-  -webkit-animation: pop 200ms ease 100ms;
-  -moz-animation: pop 200ms ease 100ms;
-  animation: pop 200ms ease 100ms;
-  -webkit-animation-fill-mode: backwards;
-  -moz-animation-fill-mode: backwards;
-  animation-fill-mode: backwards; }
-
-.game-intro {
-  margin-bottom: 0; }
-
+/* Game Explanation */
 .game-explanation {
-  margin-top: 40px; }
+    margin-top: 20px;
+    text-align: center;
+}
 
-.sharing {
-  margin-top: 20px;
-  text-align: center; }
-  .sharing > iframe, .sharing > span, .sharing > form {
-    display: inline-block;
-    vertical-align: middle; }
 
-@media screen and (min-width: 521px) {
-
- .sharing { 
-      
-  -moz-transform: scale(2);
-  -webkit-transform: scale(2);
-  -o-transform: scale(2);
-  -ms-transform: scale(2);
-  transform: scale(2);
-  
+/* Responsiveness (Media Queries) */
+@media screen and (max-width: 520px) {
+  /* Adjust game-wrapper padding for smaller screens */
+  .game-wrapper {
+    padding: 10px;
   }
 
-}
-    
-@media screen and (max-width: 520px) {
-  html, body {
-    font-size: 15px; }
-
-  body {
-    margin: 20px 0;
-    padding: 0 20px; }
-
-  h1.title {
-    font-size: 27px;
-    margin-top: 15px; }
-
-  .container {
-    width: 320px; /* Keep this if the container itself is fixed, but if you want it responsive like the game-container, it would be calc(100vw - 40px) */
-    margin: 0 auto; }
-
-  .score-container, .best-container {
-    margin-top: 0;
-    padding: 15px 10px;
-    min-width: 40px;
-    box-sizing: border-box;	}
-/* Ensure NO explicit height or line-height properties are here, as they'd override the global fix */
-}
-
-  .heading {
+  /* Header Section on mobile: stack title and scores */
+  .header-section {
+    flex-direction: column;
+    align-items: center; /* Center items horizontally in column layout */
     margin-bottom: 10px;
-    text-align: center;	}
+  }
 
-.heading {
-  text-align: center; /* This will center the title and any non-floated content */
-  /* ... any other properties for .heading ... */
-}
+  .title {
+    font-size: 50px;
+    margin-bottom: 10px;
+  }
 
-   .game-container {
-   /* Change margin: 20px auto; to margin-top: 60px; and add auto for horizontal centering */
-   margin-top: 60px; /* Increased from 20px/40px to ensure enough vertical space for the scoreboard */
-   margin-left: auto;
-   margin-right: auto;
+  .scores-container {
+    justify-content: center;
+    width: 100%; /* Ensure scores container takes full width to center its content */
+  }
 
-   position: relative;
-   padding: calc((100vw - 40px) / 28);
-   cursor: default;
-   -webkit-touch-callout: none;
-   -webkit-user-select: none;
-   -moz-user-select: none;
-   background: #bbada0;
-   border-radius: 6px;
-   width: calc(100vw - 40px);
-   height: calc(100vw - 40px);
-   -ms-touch-action: none;
-   -webkit-box-sizing: border-box;
-   -moz-box-sizing: border-box;
-   box-sizing: border-box;
-}
-    .game-container .game-message {
-      display: none;
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      background: rgba(238, 228, 218, 0.5);
-      z-index: 100;
-      text-align: center;
-      -webkit-animation: fade-in 800ms ease 1200ms;
-      -moz-animation: fade-in 800ms ease 1200ms;
-      animation: fade-in 800ms ease 1200ms;
-      -webkit-animation-fill-mode: both;
-      -moz-animation-fill-mode: both;
-      animation-fill-mode: both; }
-      .game-container .game-message p {
-        /* UPDATED: Responsive font sizing for message */
-        font-size: calc(((100vw - 40px) / 4) / 0.75); /* Roughly 60px equivalent */
-        font-weight: bold;
-        height: calc(((100vw - 40px) / 4) / 0.75);
-        line-height: calc(((100vw - 40px) / 4) / 0.75);
-        margin-top: calc(((100vw - 40px) / 4) / 30); /* Roughly 2px equivalent */
-      }
-      .game-container .game-message .lower {
-        /* UPDATED: Responsive margin-top for lower message */
-        display: block;
-        margin-top: calc(((100vw - 40px) / 4) / 70); /* Roughly 0px equivalent, but scales */
-      }
-      .game-container .game-message a {
-        display: inline-block;
-        background: #8f7a66;
-        border-radius: 3px;
-        padding: 0 20px;
-        text-decoration: none;
-        color: #f9f6f2;
-        height: 40px;
-        line-height: 42px;
-        margin-left: 9px; }
-        .game-container .game-message a.keep-playing-button {
-          display: none; }
-      .game-container .game-message .score-sharing {
-        display: inline-block;
-        vertical-align: middle;
-        margin-left: 10px; }
-      .game-container .game-message.game-won {
-        background: rgba(237, 194, 46, 0.5);
-        color: #f9f6f2; }
-        .game-container .game-message.game-won a.keep-playing-button {
-          display: inline-block; }
-      .game-container .game-message.game-won, .game-container .game-message.game-over {
-        display: block; }
+  .score-container,
+  .best-container {
+    padding: 10px 15px;
+    font-size: 20px;
+  }
+
+  .score-container:after,
+  .best-container:after {
+    font-size: 11px;
+    top: 7px;
+  }
+
+  .game-container {
+    padding: 10px; /* Adjust game board padding for smaller screens */
+  }
 
   .grid-container {
-    position: absolute;
-    z-index: 1; }
-
-  .grid-row {
-    margin-bottom: calc((100vw - 40px) / 28);
+    gap: 10px; /* Smaller gap on mobile */
   }
-    .grid-row:last-child {
-      margin-bottom: 0;
-    }
-    .grid-row:after { /* Corrected formatting for this block */
-      content: "";
-      display: block;
-      clear: both;
-    }
 
-  .grid-cell {
-    width: calc(((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4);
-    height: calc(((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4);
-    margin-right: calc((100vw - 40px) / 28); /* Correct margin for horizontal spacing */
-    float: left; /* CRITICAL: This MUST be 'float: left;' for the grid to work */
-    /*outline: 2px solid blue; /* Your diagnostic outline */
-    box-sizing: border-box; /* Crucial for calc to work as expected */
-    flex-shrink: 0; /* Keep if present from previous steps, won't harm float layout */
-    /* Ensure NO 'float: none;' or other conflicting display properties here */
+  /* Tile sizing and positioning for mobile */
+  .tile {
+    width: calc((100% - 3 * 10px) / 4); /* Recalculate based on new gap */
+    padding-bottom: calc((100% - 3 * 10px) / 4);
+    font-size: 45px; /* Base font size for mobile tiles */
   }
-    .grid-cell:last-child {
-      margin-right: 0;
-    }
 
-  .tile-container {
-    position: absolute;
-    z-index: 2; }
-
-  .tile, .tile .tile-inner {
-    width: calc(((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4 + 1px);
-    height: calc(((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4 + 1px);
-    line-height: calc(((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4 + 1px); /* Match height for vertical centering */
-    box-sizing: border-box;
+  /* Adjust --tile-size for mobile media query */
+  :root {
+    --grid-gap: 10px;
+    --tile-size: calc((100vw - (2 * 10px) - (2 * var(--grid-gap))) / 4); /* Dynamic tile size for mobile */
   }
-  .tile.tile-position-1-1 {
-    -webkit-transform: translate(0, 0);
-    -moz-transform: translate(0, 0);
-    transform: translate(0, 0);
-}
-.tile.tile-position-1-1 {
-  -webkit-transform: translate(0, 0);
-  -moz-transform: translate(0, 0);
-  transform: translate(0, 0);
-}
-.tile.tile-position-1-2 {
-  -webkit-transform: translate(0, calc(((100vw - 40px) * 27) / 112));
-  -moz-transform: translate(0, calc(((100vw - 40px) * 27) / 112));
-  transform: translate(0, calc(((100vw - 40px) * 27) / 112));
-}
-.tile.tile-position-1-3 {
-  -webkit-transform: translate(0, calc(2 * ((100vw - 40px) * 27) / 112));
-  -moz-transform: translate(0, calc(2 * ((100vw - 40px) * 27) / 112));
-  transform: translate(0, calc(2 * ((100vw - 40px) * 27) / 112));
-}
-.tile.tile-position-1-4 {
-  -webkit-transform: translate(0, calc(3 * ((100vw - 40px) * 27) / 112));
-  -moz-transform: translate(0, calc(3 * ((100vw - 40px) * 27) / 112));
-  transform: translate(0, calc(3 * ((100vw - 40px) * 27) / 112));
-}
-.tile.tile-position-2-1 {
-  -webkit-transform: translate(calc(1 * ((100vw - 40px) * 27) / 112), 0);
-  -moz-transform: translate(calc(1 * ((100vw - 40px) * 27) / 112), 0);
-  transform: translate(calc(1 * ((100vw - 40px) * 27) / 112), 0);
-}
-.tile.tile-position-2-2 {
-  -webkit-transform: translate(calc(1 * ((100vw - 40px) * 27) / 112), calc(1 * ((100vw - 40px) * 27) / 112));
-  -moz-transform: translate(calc(1 * ((100vw - 40px) * 27) / 112), calc(1 * ((100vw - 40px) * 27) / 112));
-  transform: translate(calc(1 * ((100vw - 40px) * 27) / 112), calc(1 * ((100vw - 40px) * 27) / 112));
-}
-.tile.tile-position-2-3 {
-  -webkit-transform: translate(calc(1 * ((100vw - 40px) * 27) / 112), calc(2 * ((100vw - 40px) * 27) / 112));
-  -moz-transform: translate(calc(1 * ((100vw - 40px) * 27) / 112), calc(2 * ((100vw - 40px) * 27) / 112));
-  transform: translate(calc(1 * ((100vw - 40px) * 27) / 112), calc(2 * ((100vw - 40px) * 27) / 112));
-}
-.tile.tile-position-2-4 {
-  -webkit-transform: translate(calc(1 * ((100vw - 40px) * 27) / 112), calc(3 * ((100vw - 40px) * 27) / 112));
-  -moz-transform: translate(calc(1 * ((100vw - 40px) * 27) / 112), calc(3 * ((100vw - 40px) * 27) / 112));
-  transform: translate(calc(1 * ((100vw - 40px) * 27) / 112), calc(3 * ((100vw - 40px) * 27) / 112));
-}
-.tile.tile-position-3-1 {
-  -webkit-transform: translate(calc(2 * ((100vw - 40px) * 27) / 112), 0);
-  -moz-transform: translate(calc(2 * ((100vw - 40px) * 27) / 112), 0);
-  transform: translate(calc(2 * ((100vw - 40px) * 27) / 112), 0);
-}
-.tile.tile-position-3-2 {
-  -webkit-transform: translate(calc(2 * ((100vw - 40px) * 27) / 112), calc(1 * ((100vw - 40px) * 27) / 112));
-  -moz-transform: translate(calc(2 * ((100vw - 40px) * 27) / 112), calc(1 * ((100vw - 40px) * 27) / 112));
-  transform: translate(calc(2 * ((100vw - 40px) * 27) / 112), calc(1 * ((100vw - 40px) * 27) / 112));
-}
-.tile.tile-position-3-3 {
-  -webkit-transform: translate(calc(2 * ((100vw - 40px) * 27) / 112), calc(2 * ((100vw - 40px) * 27) / 112));
-  -moz-transform: translate(calc(2 * ((100vw - 40px) * 27) / 112), calc(2 * ((100vw - 40px) * 27) / 112));
-  transform: translate(calc(2 * ((100vw - 40px) * 27) / 112), calc(2 * ((100vw - 40px) * 27) / 112));
-}
-.tile.tile-position-3-4 {
-  -webkit-transform: translate(calc(2 * ((100vw - 40px) * 27) / 112), calc(3 * ((100vw - 40px) * 27) / 112));
-  -moz-transform: translate(calc(2 * ((100vw - 40px) * 27) / 112), calc(3 * ((100vw - 40px) * 27) / 112));
-  transform: translate(calc(2 * ((100vw - 40px) * 27) / 112), calc(3 * ((100vw - 40px) * 27) / 112));
-}
-.tile.tile-position-4-1 {
-  -webkit-transform: translate(calc(3 * ((100vw - 40px) * 27) / 112), 0);
-  -moz-transform: translate(calc(3 * ((100vw - 40px) * 27) / 112), 0);
-  transform: translate(calc(3 * ((100vw - 40px) * 27) / 112), 0);
-}
-.tile.tile-position-4-2 {
-  -webkit-transform: translate(calc(3 * ((100vw - 40px) * 27) / 112), calc(1 * ((100vw - 40px) * 27) / 112));
-  -moz-transform: translate(calc(3 * ((100vw - 40px) * 27) / 112), calc(1 * ((100vw - 40px) * 27) / 112));
-  transform: translate(calc(3 * ((100vw - 40px) * 27) / 112), calc(1 * ((100vw - 40px) * 27) / 112));
-}
-.tile.tile-position-4-3 {
-  -webkit-transform: translate(calc(3 * ((100vw - 40px) * 27) / 112), calc(2 * ((100vw - 40px) * 27) / 112));
-  -moz-transform: translate(calc(3 * ((100vw - 40px) * 27) / 112), calc(2 * ((100vw - 40px) * 27) / 112));
-  transform: translate(calc(3 * ((100vw - 40px) * 27) / 112), calc(2 * ((100vw - 40px) * 27) / 112));
-}
-.tile.tile-position-4-4 {
-  -webkit-transform: translate(calc(3 * ((100vw - 40px) * 27) / 112), calc(3 * ((100vw - 40px) * 27) / 112));
-  -moz-transform: translate(calc(3 * ((100vw - 40px) * 27) / 112), calc(3 * ((100vw - 40px) * 27) / 112));
-  transform: translate(calc(3 * ((100vw - 40px) * 27) / 112), calc(3 * ((100vw - 40px) * 27) / 112));
-}
-  .game-container {
-    margin: 20px auto; }
 
+  /* Adjust tile text sizes for smaller screens */
   .tile .tile-inner {
-    font-size: calc(((100vw - 40px) / 4) / 1.6); 
-	/*outline: 2px solid red;} */
+    font-size: calc((var(--tile-size)) / 1.6);
+  }
+  .tile.tile-128 .tile-inner,
+  .tile.tile-256 .tile-inner,
+  .tile.tile-512 .tile-inner {
+    font-size: calc((var(--tile-size)) / 2);
+  }
+  .tile.tile-1024 .tile-inner,
+  .tile.tile-2048 .tile-inner {
+    font-size: calc((var(--tile-size)) / 2.5);
+  }
+  .tile.tile-super .tile-inner {
+    font-size: calc((var(--tile-size)) / 3);
+  }
 
-  .game-container .game-message p { 
-    font-size: calc(((100vw - 40px) / 4) / 0.75); /* Equivalent to 60px in 280px grid */
-    height: calc(((100vw - 40px) / 4) / 0.75);
-    line-height: calc(((100vw - 40px) / 4) / 0.75);
-    margin-top: calc(((100vw - 40px) / 4) / 30); /* For ~2px */
-}
-  .game-container .game-message .lower {
-    margin-top: calc(((100vw - 40px) / 4) / 70); /* Roughly 0px equivalent, but scales */
-}
+  /* Ensure game message font scales properly */
+  .game-message p {
+    font-size: calc((100vw - 40px) / 5);
+    height: auto;
+    line-height: 1.2;
+    margin-top: calc((100vw - 40px) / 10);
+  }
+  .game-message .lower {
+    margin-top: 0 !important;
+  }
 
-  .sharing > iframe, .sharing > span, .sharing > form {
-    display: block;
-    margin: 0 auto;
-    margin-bottom: 20px; } }
-   
-/*
-     FILE ARCHIVED ON 13:29:26 Apr 14, 2014 AND RETRIEVED FROM THE
-     INTERNET ARCHIVE ON 17:49:12 Jul 14, 2025.
-     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+  /* Tile position transformations for smaller screens (using CSS variables) */
+  .tile-position-1-1 { transform: translate(0, 0) !important; }
+  .tile-position-2-1 { transform: translate(calc(1 * (var(--tile-size) + var(--grid-gap))), 0) !important; }
+  .tile-position-3-1 { transform: translate(calc(2 * (var(--tile-size) + var(--grid-gap))), 0) !important; }
+  .tile-position-4-1 { transform: translate(calc(3 * (var(--tile-size) + var(--grid-gap))), 0) !important; }
 
-     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
-     SECTION 108(a)(3)).
-*/
-/*
-playback timings (ms):
-  captures_list: 0.88
-  exclusion.robots: 0.036
-  exclusion.robots.policy: 0.015
-  esindex: 0.016
-  cdx.remote: 38.729
-  LoadShardBlock: 362.0 (3)
-  PetaboxLoader3.datanode: 236.108 (4)
-  PetaboxLoader3.resolve: 476.292 (2)
-  load_resource: 390.046
-*/
+  .tile-position-1-2 { transform: translate(0, calc(1 * (var(--tile-size) + var(--grid-gap)))) !important; }
+  .tile-position-2-2 { transform: translate(calc(1 * (var(--tile-size) + var(--grid-gap))), calc(1 * (var(--tile-size) + var(--grid-gap)))) !important; }
+  .tile-position-3-2 { transform: translate(calc(2 * (var(--tile-size) + var(--grid-gap))), calc(1 * (var(--tile-size) + var(--grid-gap)))) !important; }
+  .tile-position-4-2 { transform: translate(calc(3 * (var(--tile-size) + var(--grid-gap))), calc(1 * (var(--tile-size) + var(--grid-gap)))) !important; }
 
-<style>
+  .tile-position-1-3 { transform: translate(0, calc(2 * (var(--tile-size) + var(--grid-gap)))) !important; }
+  .tile-position-2-3 { transform: translate(calc(1 * (var(--tile-size) + var(--grid-gap))), calc(2 * (var(--tile-size) + var(--grid-gap)))) !important; }
+  .tile-position-3-3 { transform: translate(calc(2 * (var(--tile-size) + var(--grid-gap))), calc(2 * (var(--tile-size) + var(--grid-gap)))) !important; }
+  .tile-position-4-3 { transform: translate(calc(3 * (var(--tile-size) + var(--grid-gap))), calc(2 * (var(--tile-size) + var(--grid-gap)))) !important; }
 
-body {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column; /* Arrange content vertically */
-    align-items: center; /* Center horizontally */
-    min-height: 100vh; /* Ensure body takes full viewport height */
-    justify-content: center; /* Center vertically if content doesn't fill */
-
+  .tile-position-1-4 { transform: translate(0, calc(3 * (var(--tile-size) + var(--grid-gap)))) !important; }
+  .tile-position-2-4 { transform: translate(calc(1 * (var(--tile-size) + var(--grid-gap))), calc(3 * (var(--tile-size) + var(--grid-gap)))) !important; }
+  .tile-position-3-4 { transform: translate(calc(2 * (var(--tile-size) + var(--grid-gap))), calc(3 * (var(--tile-size) + var(--grid-gap)))) !important; }
+  .tile-position-4-4 { transform: translate(calc(3 * (var(--tile-size) + var(--grid-gap))), calc(3 * (var(--tile-size) + var(--grid-gap)))) !important; }
 }
 
-.game-wrapper {
-    max-width: 500px;
-    margin: 20px auto;
-    padding: 60px 10px 0px 30px;
-    box-sizing: border-box;
-}
-
-/* Ensure specific block elements within the wrapper also have auto margins if they have fixed widths */
-.container,
-.game-container {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Specific adjustments for "How to play" if needed */
-.game-explanation {
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* If your .game-container background isn't centering, you might need this */
-.game-container::before {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.tile-text {
-    display:inline-block;
-    vertical-align: middle;
-}
-
-/* ONLY THIS PART OF THE MEDIA QUERY SHOULD REMAIN FOR NOW */
-@media (max-width: 500px) {
-    .game-wrapper {
-        max-width: 100%;
-        padding: 20px 0 0 0; /* REMOVED HORIZONTAL PADDING */
-        margin: 10px auto;
-    }
-    .title {
-        font-size: 30px;
-    }
-    .score-container,
-    .best-container {
-        font-size: 20px;
-    }
-}
-@media (max-width: 380px) {
-    .game-wrapper {
-        padding: 10px 0 0 0;
-    }
-    .title {
-        font-size: 25px;
-    }
-}
-
-@media screen and (max-width: 520px) {
-    /* Override fixed container width and padding for mobile */
-    .container {
-        width: 500px; /* Or whatever fixed width you want for desktop */
-        margin: 0 auto; /* This centers the container horizontally */
-		padding: 0 10px; /* Add some side padding to the main container */
-    }
-
-    .game-container {
-        /* Calculate width based on viewport, leaving 20px margin on each side (total 40px) */
-        width: calc(100vw - 40px) !important;
-        /* Keep it square by matching height to width */
-        height: calc(100vw - 40px) !important;
-        margin-top: 60px !important; /* Adjusted for scoreboard visibility */
-        margin-left: auto !important;
-        margin-right: auto !important;
-        /* Make padding proportional to the original mobile ratio (10px padding for 280px width) */
-        padding: calc((100vw - 40px) / 28) !important;
-		box-sizing: border-box !important;
-    }
-
-    .game-container .grid-cell {
-        /*
-         New calculation for cell width:
-         Total game-container width: (100vw - 40px)
-         game-container padding (P_gc): ((100vw - 40px) / 28)
-         Inner width for cells = (100vw - 40px) - (2 * P_gc)
-         We need 4 cells and 3 gaps. Each gap will be P_gc.
-         So: (4 * Cell_Width) + (3 * P_gc) = Inner width for cells
-         4 * Cell_Width = Inner width for cells - (3 * P_gc)
-         4 * Cell_Width = ((100vw - 40px) - (2 * P_gc)) - (3 * P_gc)
-         4 * Cell_Width = (100vw - 40px) - (5 * P_gc)
-         Cell_Width = ((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4
-        */
-         width: calc(((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) !important;
-         height: calc(((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) !important;
-         margin-right: 0 !important;
-         /*outline: 2px solid blue !important;*/ /*use for cell diagnostic*/
-         flex-shrink: 0 !important; 
-         box-sizing: border-box !important;
-    }   
-
-    .game-container .grid-row { /* Increased specificity to match main.css */
-        margin-bottom: calc((100vw - 40px) / 28) !important; /* Bottom margin for rows */
-        display: flex !important; /* Force flexbox layout */
-        flex-direction: row !important; /* Force horizontal alignment */
-        flex-wrap: nowrap !important; /* CRITICAL: Prevent cells from wrapping to next line */
-        justify-content: flex-start !important; /* Align cells to the beginning of the row */
-        gap: calc((100vw - 40px) / 28) !important; /* Use gap for spacing between cells */
-        padding: 0 !important; /* Ensure no extra padding within grid-row */
-    }
-
-    /* Make tiles responsive and adjust their positioning */
-
-.tile, .tile .tile-inner {
-        /* Tile width matches new grid cell width, plus 1px */
-        width: calc((((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + 1px) !important;
-        /* Keep tiles square */
-        height: calc((((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + 1px) !important;
-        /* Adjust line-height for vertical centering of tile text */
-        line-height: calc((((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + 10px) !important;
-        box-sizing: border-box !important;
-    }
-
-/* ADD THIS NEW BLOCK INSIDE THE @media screen and (max-width: 520px) BLOCK */
-    .tile .tile-inner {
-        /*outline: 2px solid red !important;*/ /* use for tile diagnostic */
-    }
-	
-    /* Override specific tile positions with calculated translate values */
-/* The 'step' value for translation is (calculated_cell_width + calculated_gap_width) */
-/* We use !important to ensure these override main.css */
-
-/* Column 1 (X=0 steps horizontally) */
-.tile-position-1-1 { transform: translate(0, 0) !important; }
-.tile-position-1-2 { transform: translate(0, calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28)))) !important; }
-.tile-position-1-3 { transform: translate(0, calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28)))) !important; }
-.tile-position-1-4 { transform: translate(0, calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28)))) !important; }
-
-/* Column 2 (X=1 step horizontally) */
-.tile-position-2-1 { transform: translate(calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), 0) !important; }
-.tile-position-2-2 { transform: translate(calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28)))) !important; }
-.tile-position-2-3 { transform: translate(calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28)))) !important; }
-.tile-position-2-4 { transform: translate(calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28)))) !important; }
-
-/* Column 3 (X=2 steps horizontally) */
-.tile-position-3-1 { transform: translate(calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), 0) !important; }
-.tile-position-3-2 { transform: translate(calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28)))) !important; }
-.tile-position-3-3 { transform: translate(calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28)))) !important; }
-.tile-position-3-4 { transform: translate(calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28)))) !important; }
-
-/* Column 4 (X=3 steps horizontally) */
-.tile-position-4-1 { transform: translate(calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), 0) !important; }
-.tile-position-4-2 { transform: translate(calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(1 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28)))) !important; }
-.tile-position-4-3 { transform: translate(calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(2 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28)))) !important; }
-.tile-position-4-4 { transform: translate(calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28))), calc(3 * (((100vw - 40px) - (5 * ((100vw - 40px) / 28))) / 4) + ((100vw - 40px) / 28)))) !important; }
-
-    /* Adjust font sizes for tiles to scale proportionally */
-    .tile .tile-inner {
-        font-size: calc(((100vw - 40px) / 4) / 1.6);
-    }
-    .tile.tile-128 .tile-inner,
-    .tile.tile-256 .tile-inner,
-    .tile.tile-512 .tile-inner {
-        font-size: calc(((100vw - 40px) / 4) / 2);
-    }
-    .tile.tile-1024 .tile-inner,
-    .tile.tile-2048 .tile-inner {
-        font-size: calc(((100vw - 40px) / 4) / 2.5);
-    }
-    .tile.tile-super .tile-inner {
-        font-size: calc(((100vw - 40px) / 4) / 3);
-    }
-
-    /* Ensure game message font scales properly */
-    .game-container .game-message p {
-        font-size: calc((100vw - 40px) / 5);
-        height: auto;
-        line-height: 1.2;
-        margin-top: calc((100vw - 40px) / 10);
-    }
-    .game-container .game-message .lower {
-        margin-top: 0 !important;
-    }
-}
-
+/* Sharer section (specific for larger screens) */
 @media (min-width: 800px) {
   .sharer {
-         -moz-column-count: 2;
-         -moz-column-gap: 20px;
-         -webkit-column-count: 2;
-         -webkit-column-gap: 20px;
-         
+    -moz-column-count: 2;
+    -moz-column-gap: 20px;
+    -webkit-column-count: 2;
+    -webkit-column-gap: 20px;
   }
   .sharer a { color: #0000cc; }
 }
+
 @media (max-width: 800px) {
   .sharer {
     padding: 0 10px;
   }
   .sharer a { color: #0000cc; }
-}
-
-/* Container for title + scoreboard */
-.game-header {
-  max-width: 500px;         /* match your game width */
-  margin: 0 auto 20px;      /* center horizontally + bottom spacing */
-  padding: 0 10px;          /* side padding on small screens */
-  box-sizing: border-box;
-  text-align: center;       /* fallback centering */
-}
-
-/* Lay out score boxes side by side, centered */
-.scores-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;                /* space between score & best */
-  margin-top: 10px;         /* space below title */
-}
-
-/* Reset old float/position hacks */
-.score-container,
-.best-container {
-  float: none !important;
-  position: static !important;
-}
-
-/* 1. Turn the header into a vertical flex container */
-.game-header {
-  display: flex;
-  flex-direction: column;   /* stack title above scores */
-  align-items: center;      /* center children horizontally */
-  max-width: 500px;         /* match your board width */
-  margin: 0 auto 20px;      /* center on page + bottom gap */
-  padding: 0 10px;          /* small side padding on mobile */
-  box-sizing: border-box;
-}
-
-/* 2. Score row stays a flex row, centered by default */
-.scores-wrapper {
-  display: flex;
-  justify-content: center;
-  gap: 10px;               /* space between score & best */
-  margin-top: 10px;        /* spacing under the title */
-}
-
-/* 3. Nuke any stray floats/positions */
-.title,
-.score-container,
-.best-container {
-  float: none !important;
-  position: static !important;
-  margin: 0;                /* reset any weird margins */
-  text-align: center;       /* ensure text inside is centered */
-}
-
-/* >>> new desktop flex for your header container */
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  /* optional: max-width, margin, padding to taste */
-}
-
-/* --- SHRINK & CENTER HEADER + SCORES --- */
-.container {
-  /* kill the fixed 500px width and let it size to its contents */
-  width: auto !important;
-  max-width: none !important;
-
-  /* make it shrink-to-fit and stack title above scores */
-  display: inline-flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-
-  /* center it on the page and add some breathing room */
-  margin: 20px auto 0 !important;
-  padding: 0 !important;
-  box-sizing: border-box !important;
-
-  /* allow touches to pass through empty header space */
-  pointer-events: none !important;
-}
-
-/* but keep pointer events on the actual children */
-.container > .title,
-.container > .scores-container {
-  pointer-events: auto !important;
-}
-
-/* center the score boxes under the title */
-.scores-container {
-  float: none !important;
-  display: inline-flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  gap: 10px !important;
-  margin-top: 10px !important;
-}
-
-/* ======  OVERRIDE: Shrink & Center Header + Scores  ====== */
-
-/* 1. Tame the outer wrapper’s padding so our header isn’t pushed around */
-.game-wrapper {
-  /* kill the old 60px top padding and 30px left padding */
-  padding: 20px 0 0 0 !important;
-  box-sizing: border-box !important;
-}
-
-/* 2. Make the header (.container) only as wide/high as its contents */
-.container {
-  width: auto !important;              /* kill the 500px width */
-  max-width: none !important;
-  display: inline-flex !important;     /* shrink-to-fit + flex stacking */
-  flex-direction: column !important;   /* title above scores */
-  align-items: center !important;      /* horizontal centering */
-  justify-content: center !important;  /* vertical centering if needed */
-  margin: 0 auto 20px !important;      /* center on page + gap below */
-  padding: 0 !important;               /* remove leftover padding */
-  box-sizing: border-box !important;
-}
-
-/* 3. Lay out the two score boxes in a neat, centered row */
-.scores-container {
-  float: none !important;              /* cancel any old floats */
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  gap: 10px !important;                /* space between Score & Best */
-  margin-top: 10px !important;         /* gap under the title */
-}
-
-/* 4. Ensure the title text itself is centered */
-.title {
-  text-align: center !important;
 }
