@@ -1185,3 +1185,40 @@ body {
   gap: 10px !important;
   margin-top: 10px !important;
 }
+
+/* ======  OVERRIDE: Shrink & Center Header + Scores  ====== */
+
+/* 1. Tame the outer wrapper’s padding so our header isn’t pushed around */
+.game-wrapper {
+  /* kill the old 60px top padding and 30px left padding */
+  padding: 20px 0 0 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* 2. Make the header (.container) only as wide/high as its contents */
+.container {
+  width: auto !important;              /* kill the 500px width */
+  max-width: none !important;
+  display: inline-flex !important;     /* shrink-to-fit + flex stacking */
+  flex-direction: column !important;   /* title above scores */
+  align-items: center !important;      /* horizontal centering */
+  justify-content: center !important;  /* vertical centering if needed */
+  margin: 0 auto 20px !important;      /* center on page + gap below */
+  padding: 0 !important;               /* remove leftover padding */
+  box-sizing: border-box !important;
+}
+
+/* 3. Lay out the two score boxes in a neat, centered row */
+.scores-container {
+  float: none !important;              /* cancel any old floats */
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 10px !important;                /* space between Score & Best */
+  margin-top: 10px !important;         /* gap under the title */
+}
+
+/* 4. Ensure the title text itself is centered */
+.title {
+  text-align: center !important;
+}
