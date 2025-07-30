@@ -3,16 +3,16 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <title>2048: Jessica Nigri Edition</title>
-  <link href="main.css" rel="stylesheet" type="text/css">
+  <link href="css/main.css" rel="stylesheet" type="text/css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <!-- Your game's JavaScript files -->
   <script src="js/jquery.min.js"></script>
   <script src="js/glom.js"></script>
 </head>
 <body>
   <div class="game-wrapper">
     <div class="header-section">
-      <h1 class="title thisistext">2048:<br>Jessica Nigri</h1>
+      <h1 class="title">2048:</h1>
+      <h2 class="subtitle">Jessica Nigri</h2>
       <div class="scores-container">
         <div class="score-container">0</div>
         <div class="best-container">0</div>
@@ -26,6 +26,7 @@
           <a class="tweet">Tweet your score</a>
           <a class="facebook">Share on Facebook</a>
           <a class="retry-button">Try again</a>
+        
         </div>
       </div>
 
@@ -57,7 +58,6 @@
       </div>
 
       <div class="tile-container">
-        <!-- Example tiles (these would be added/removed by your game logic) -->
         <div class="tile tile-2 tile-position-1-4"><div class="tile-inner"><div class="tile-text">2</div></div></div>
         <div class="tile tile-4 tile-position-3-2"><div class="tile-inner"><div class="tile-text">4</div></div></div>
       </div>
@@ -68,7 +68,6 @@
     </p>
   </div>
 
-  <!-- Placeholder for your game logic scripts -->
   <script>
     // Example dummy functions to prevent errors if original JS is missing
     function tweet() { console.log('Tweet functionality not implemented.'); }

@@ -1,14 +1,4 @@
-var _____WB$wombat$assign$function_____ = function(name) {return (self._wb_wombat && self._wb_wombat.local_init && self._wb_wombat.local_init(name)) || self[name]; };
-if (!self.__WB_pmw) { self.__WB_pmw = function(obj) { this.__WB_source = obj; return this; } }
-{
-  let window = _____WB$wombat$assign$function_____("window");
-  let self = _____WB$wombat$assign$function_____("self");
-  let document = _____WB$wombat$assign$function_____("document");
-  let location = _____WB$wombat$assign$function_____("location");
-  let top = _____WB$wombat$assign$function_____("top");
-  let parent = _____WB$wombat$assign$function_____("parent");
-  let frames = _____WB$wombat$assign$function_____("frames");
-  let opener = _____WB$wombat$assign$function_____("opener");
+// Removed Wayback Machine specific wrapper code for cleaner execution.
 
 (function() {
   var lastTime = 0;
@@ -155,6 +145,12 @@ function HTMLActuator() {
   this.score = 0;
 }
 
+// Define tile_contents array here, as it's used by addTile.
+// This array maps the 'which' variable (0-10) to the tile's text content.
+var tile_contents = [
+  "2", "4", "8", "16", "32", "64", "128", "256", "512", "1024", "2048"
+];
+
 HTMLActuator.prototype.actuate = function (grid, metadata) {
   var self = this;
 
@@ -213,28 +209,12 @@ HTMLActuator.prototype.addTile = function (tile) {
 
   inner.classList.add("tile-inner");
 
-  if (tile.value == 2) {
-    which = 0;
-  } else if (tile.value == 4) {
-    which = 1;
-  } else if (tile.value == 8) {
-    which = 2;
-  } else if (tile.value == 16) {
-    which = 3;
-  } else if (tile.value == 32) {
-    which = 4;
-  } else if (tile.value == 64) {
-    which = 5;
-  } else if (tile.value == 128) {
-    which = 6;
-  } else if (tile.value == 256) {
-    which = 7;
-  } else if (tile.value == 512) {
-    which = 8;
-  } else if (tile.value == 1024) {
-    which = 9;
-  } else if (tile.value == 2048) {
-    which = 10;
+  // Determine 'which' index for tile_contents based on tile.value
+  // This logic assumes tile values are powers of 2 starting from 2
+  var which = Math.log2(tile.value) - 1; 
+  // Ensure 'which' is within bounds of tile_contents array
+  if (which < 0 || which >= tile_contents.length) {
+      which = 0; // Default to '2' if value is unexpected
   }
 
   text.textContent = tile_contents[which];
@@ -266,8 +246,8 @@ HTMLActuator.prototype.addTile = function (tile) {
   // Put the tile on the board
   $(".tile-container").append(wrapper);
 
-  // Call the resize-a-magig
-  resizeTextOn(".tile-"+tile.value);
+  // Removed resizeTextOn call as responsive font sizing is handled by CSS clamp()
+  // resizeTextOn(".tile-"+tile.value);
 };
 
 HTMLActuator.prototype.applyClasses = function (element, classes) {
@@ -284,19 +264,38 @@ HTMLActuator.prototype.positionClass = function (position) {
 };
 
 HTMLActuator.prototype.updateScore = function (score) {
-  this.clearContainer(this.scoreContainer);
+  var self = this;
+  var scoreElement = this.scoreContainer; // Reference to the actual score element
+
+  // Remove any existing score-addition elements before updating
+  var existingAdditions = scoreElement.querySelectorAll(".score-addition");
+  existingAdditions.forEach(function(el) {
+    el.remove();
+  });
 
   var difference = score - this.score;
   this.score = score;
 
-  this.scoreContainer.textContent = this.score;
+  // Update the main score text content
+  // We need to ensure only the number itself is updated, not the entire container's content
+  // The HTML structure is <div class="score-container">0</div>, where 0 is the textContent
+  // The 'SCORE' label is a :before pseudo-element.
+  // So, direct textContent update is fine.
+  scoreElement.textContent = this.score;
+
 
   if (difference > 0) {
     var addition = document.createElement("div");
     addition.classList.add("score-addition");
     addition.textContent = "+" + difference;
 
-    this.scoreContainer.appendChild(addition);
+    // Append the addition, then set up its removal after animation
+    scoreElement.appendChild(addition);
+
+    // Listen for the end of the animation to remove the element
+    addition.addEventListener("animationend", function() {
+      addition.remove(); // Remove the element from the DOM
+    });
   }
 };
 
@@ -671,6 +670,7 @@ GameManager.prototype.findFarthestPosition = function (cell, vector) {
   // Progress towards the vector direction until an obstacle is found
   do {
     previous = cell;
+    // CORRECTED LINE: Ensure both x and y coordinates are updated
     cell     = { x: previous.x + vector.x, y: previous.y + vector.y };
   } while (this.grid.withinBounds(cell) &&
            this.grid.cellAvailable(cell));
@@ -721,26 +721,3 @@ GameManager.prototype.positionsEqual = function (first, second) {
 window.requestAnimationFrame(function () {
   new GameManager(4, KeyboardInputManager, HTMLActuator, LocalScoreManager);
 });
-
-
-}
-/*
-     FILE ARCHIVED ON 13:29:31 Apr 14, 2014 AND RETRIEVED FROM THE
-     INTERNET ARCHIVE ON 17:49:15 Jul 14, 2025.
-     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
-
-     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
-     SECTION 108(a)(3)).
-*/
-/*
-playback timings (ms):
-  captures_list: 0.736
-  exclusion.robots: 0.03
-  exclusion.robots.policy: 0.013
-  esindex: 0.013
-  cdx.remote: 154.228
-  LoadShardBlock: 980.078 (3)
-  PetaboxLoader3.datanode: 483.201 (5)
-  PetaboxLoader3.resolve: 1020.371 (3)
-  load_resource: 687.825 (2)
-*/

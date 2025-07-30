@@ -13,11 +13,11 @@ html, body {
 body {
   font-weight: 300;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start; /* Changed to flex-start to ensure content starts from the top */
+  align-items: center;   /* Center content horizontally */
   flex-direction: column;
   min-height: 100vh; /* Ensure body takes full viewport height */
-  padding: 20px; /* Add overall padding to prevent content from touching edges */
+  padding: 0; /* Remove body padding, let game-wrapper handle it */
   box-sizing: border-box;
 }
 
@@ -29,68 +29,112 @@ body {
   width: 95%; /* Fluid width, takes 95% of parent (body) width */
   max-width: 600px; /* Constrain max width for desktop screens */
   box-sizing: border-box;
-  margin: auto; /* Center horizontally */
+  margin: auto; /* Center horizontally within the body */
+  padding: 40px 10px 20px 10px; /* Increased top padding, added bottom padding */
 }
 
 /* Header Section (Contains Title and Scores) */
 .header-section {
   display: flex;
-  justify-content: space-between; /* Space out title and scores */
-  align-items: center; /* Align items to the center vertically */
+  flex-direction: column; /* Stack title elements and scores container vertically */
+  align-items: center;   /* Center children horizontally within the header */
   width: 100%; /* Take full width of its parent (.game-wrapper) */
   margin-bottom: 20px; /* Space between header and game board */
+  margin-top: 0; /* Reset margin-top, rely on game-wrapper padding-top */
 }
 
-/* Title Styling */
+/* Title Styling (for "2048:") */
 .title {
   /* Responsive font size: min 40px, max 80px, scales with 10vw */
   font-size: clamp(40px, 10vw, 80px);
   font-weight: bold;
-  margin: 0;
+  margin: 0; /* Remove default margins */
   display: block;
-  line-height: 1.2; /* Slightly increased line height for better spacing */
+  line-height: 1.2; /* Adjusted line height for better spacing */
   color: #776e65;
-  white-space: normal; /* Allow text to wrap if necessary, relying on <br> */
-  text-align: center; /* Ensure text inside the h1 is centered */
+  text-align: center; /* Ensure text is centered */
+  padding: 0; /* Remove padding from title itself */
 }
+
+/* Subtitle Styling (for "Jessica Nigri") */
+.subtitle {
+  /* Responsive font size, slightly smaller than main title */
+  font-size: clamp(30px, 8vw, 60px);
+  font-weight: bold;
+  margin: 0; /* Remove default margins */
+  display: block;
+  line-height: 1.2; /* Adjusted line height */
+  color: #776e65;
+  text-align: center; /* Ensure text is centered */
+  margin-bottom: 15px; /* Space between subtitle and score container */
+  padding: 0;
+}
+
 
 /* Scores Container */
 .scores-container {
   display: flex;
   flex-wrap: wrap; /* Allow score boxes to wrap on smaller screens */
-  justify-content: flex-end; /* Align to the right */
+  justify-content: center; /* Center the score boxes within the score container */
   gap: 10px; /* Space between score boxes */
+  width: 100%; /* Ensure it takes full width for centering */
 }
 
 .score-container,
 .best-container {
-  position: relative;
-  display: inline-block;
+  position: relative; /* Crucial for absolute positioning of score-addition */
+  display: flex; /* Make it a flex container */
+  flex-direction: column; /* Stack content vertically */
+  justify-content: center; /* Center items vertically */
+  align-items: center; /* Center items horizontally */
   background: #bbada0;
-  padding: 15px 25px;
-  /* Responsive font size: min 18px, max 25px, scales with 4vw */
-  font-size: clamp(18px, 4vw, 25px);
-  font-weight: bold;
   border-radius: 3px;
   color: white;
-  text-align: center;
-  min-width: 80px; /* Ensure a minimum width for score boxes */
+  text-align: center; /* For the number text */
+  min-width: 80px;
+  height: 60px; /* Fixed height for consistency */
+  box-sizing: border-box;
+  padding: 5px 10px; /* Padding inside the box */
+  font-size: clamp(18px, 4vw, 25px); /* This applies to the number */
+  font-weight: bold;
 }
 
-.best-container:after,
-.score-container:after {
-  position: absolute;
-  width: 100%;
-  left: 0;
-  /* Responsive font size: min 10px, max 13px, scales with 2.5vw */
+.score-container:before,
+.best-container:before {
+  content: "Score"; /* Default content */
   font-size: clamp(10px, 2.5vw, 13px);
   font-weight: 300;
-  top: 9px;
   text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 2px; /* Small gap between label and number */
 }
 
-.best-container:after { content: "Best"; }
-.score-container:after { content: "Score"; }
+.best-container:before { content: "Best"; }
+
+/* Score Addition Animation */
+.score-addition {
+  position: absolute;
+  top: 50%; /* Start from the middle of the score box */
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center it precisely */
+  color: rgba(119, 110, 101, 0.9); /* A visible color for the addition */
+  font-weight: bold;
+  font-size: clamp(18px, 4vw, 25px);
+  z-index: 201; /* Ensure it's above the score box */
+  animation: score-pop-up 0.7s ease-out forwards; /* Animation properties */
+}
+
+@keyframes score-pop-up {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -150%) scale(0.8); /* Float up and shrink */
+  }
+}
+
 
 /* Game Container (The actual game board) */
 .game-container {
@@ -149,7 +193,8 @@ body {
   justify-content: center;
   align-items: center;
   font-weight: bold;
-  color: #776e65; /* Default text color, overridden by specific tile classes */
+  /* Default text color, overridden by specific tile classes or hidden for images */
+  color: #776e65;
   /* Smooth transitions for movement and color changes */
   transition: transform 0.1s ease-in-out, background-color 0.1s ease-in-out;
   box-sizing: border-box;
@@ -172,37 +217,70 @@ body {
   text-align: center;
   white-space: nowrap; /* Prevent text wrapping */
   /* Text color for tile numbers */
-  color: #776e65; /* Default text color, overridden by specific tile classes */
+  color: #776e65; /* Default text color */
 }
 
 /* Tile specific images and text colors */
-.tile-2 { background-image: url('Images/tile-2.gif'); }
-.tile-4 { background-image: url('Images/tile-4.gif'); }
-.tile-8 { background-image: url('Images/tile-8.webp'); color: #f9f6f2; } /* Note: tile-8 is webp */
-.tile-16 { background-image: url('Images/tile-16.gif'); color: #f9f6f2; }
-.tile-32 { background-image: url('Images/tile-32.gif'); color: #f9f6f2; }
-.tile-64 { background-image: url('Images/tile-64.gif'); color: #f9f6f2; }
-.tile-128 { background-image: url('Images/tile-128.gif'); color: #f9f6f2; }
-.tile-256 { background-image: url('Images/tile-256.gif'); color: #f9f6f2; }
-.tile-512 { background-image: url('Images/tile-512.gif'); color: #f9f6f2; }
-.tile-1024 { background-image: url('Images/tile-1024.gif'); color: #f9f6f2; }
-.tile-2048 { background-image: url('Images/tile-2048.gif'); color: #f9f6f2; }
+/* IMPORTANT: Paths changed to use '../Images/' because main.css is in a 'css' subfolder */
+.tile-2 { background-image: url('../Images/tile-2.gif'); }
+.tile-4 { background-image: url('../Images/tile-4.gif'); }
+.tile-8 { background-image: url('../Images/tile-8.webp'); } /* Note: tile-8 is webp */
+.tile-16 { background-image: url('../Images/tile-16.gif'); }
+.tile-32 { background-image: url('../Images/tile-32.gif'); }
+.tile-64 { background-image: url('../Images/tile-64.gif'); }
+.tile-128 { background-image: url('../Images/tile-128.gif'); }
+.tile-256 { background-image: url('../Images/tile-256.gif'); }
+.tile-512 { background-image: url('../Images/tile-512.gif'); }
+.tile-1024 { background-image: url('../Images/tile-1024.gif'); }
+.tile-2048 { background-image: url('../Images/tile-2048.gif'); }
 
-/* Adjust font sizes for larger tile numbers to fit */
+/* Hide tile text when images are present, and set text color for tiles that need it */
+.tile-2 .tile-text,
+.tile-4 .tile-text,
+.tile-8 .tile-text,
+.tile-16 .tile-text,
+.tile-32 .tile-text,
+.tile-64 .tile-text,
 .tile-128 .tile-text,
 .tile-256 .tile-text,
-.tile-512 .tile-text {
-  font-size: clamp(20px, 6vw, 45px);
-}
-
+.tile-512 .tile-text,
 .tile-1024 .tile-text,
 .tile-2048 .tile-text {
-  font-size: clamp(15px, 4vw, 35px);
+  color: transparent; /* Make text transparent to show background image */
 }
+
+/* Positioning for tiles (essential for them to appear on the grid) */
+/* These calculate left/top based on 25% width/height for each column/row,
+   plus the gap between cells. */
+
+/* Column 1 (x=1) */
+.tile-position-1-1 { left: calc(0% + 0 * 8px); top: calc(0% + 0 * 8px); }
+.tile-position-1-2 { left: calc(0% + 0 * 8px); top: calc(25% + 1 * 8px); }
+.tile-position-1-3 { left: calc(0% + 0 * 8px); top: calc(50% + 2 * 8px); }
+.tile-position-1-4 { left: calc(0% + 0 * 8px); top: calc(75% + 3 * 8px); }
+
+/* Column 2 (x=2) */
+.tile-position-2-1 { left: calc(25% + 1 * 8px); top: calc(0% + 0 * 8px); }
+.tile-position-2-2 { left: calc(25% + 1 * 8px); top: calc(25% + 1 * 8px); }
+.tile-position-2-3 { left: calc(25% + 1 * 8px); top: calc(50% + 2 * 8px); }
+.tile-position-2-4 { left: calc(25% + 1 * 8px); top: calc(75% + 3 * 8px); }
+
+/* Column 3 (x=3) */
+.tile-position-3-1 { left: calc(50% + 2 * 8px); top: calc(0% + 0 * 8px); }
+.tile-position-3-2 { left: calc(50% + 2 * 8px); top: calc(25% + 1 * 8px); }
+.tile-position-3-3 { left: calc(50% + 2 * 8px); top: calc(50% + 2 * 8px); }
+.tile-position-3-4 { left: calc(50% + 2 * 8px); top: calc(75% + 3 * 8px); }
+
+/* Column 4 (x=4) */
+.tile-position-4-1 { left: calc(75% + 3 * 8px); top: calc(0% + 0 * 8px); }
+.tile-position-4-2 { left: calc(75% + 3 * 8px); top: calc(25% + 1 * 8px); }
+.tile-position-4-3 { left: calc(75% + 3 * 8px); top: calc(50% + 2 * 8px); }
+.tile-position-4-4 { left: calc(75% + 3 * 8px); top: calc(75% + 3 * 8px); }
+
 
 /* Game Message (You Win/Game Over) */
 .game-message {
-  display: none; /* Hidden by default, shown by JS */
+  display: none !important; /* Force hide by default */
   position: absolute;
   top: 0;
   right: 0;
@@ -254,7 +332,7 @@ body {
 /* Show message when active */
 .game-message.game-won,
 .game-message.game-over {
-  display: flex; /* Override display: none when these classes are added by JS */
+  display: flex !important; /* Force show when active */
 }
 
 /* Explanation */
@@ -272,15 +350,15 @@ body {
     padding: 10px; /* Reduce overall padding on smaller screens */
   }
   .game-wrapper {
-    padding: 0; /* No internal padding for game-wrapper on small screens */
+    padding: 25px 10px 15px 10px; /* Adjusted padding for smaller screens */
   }
   .header-section {
     flex-direction: column; /* Stack title and scores vertically */
-    align-items: flex-start; /* Align header items to the left */
-    gap: 10px;
+    align-items: center; /* Align header items to the center */
+    gap: 5px; /* Smaller gap between title elements and scores */
   }
   .scores-container {
-    justify-content: flex-start; /* Align scores to the left */
+    justify-content: center; /* Align scores to the center */
     width: 100%; /* Take full width */
   }
   .score-container,
@@ -322,6 +400,9 @@ body {
 @media (max-width: 320px) {
   .title {
     font-size: clamp(30px, 8vw, 50px); /* Further reduce title font size */
+  }
+  .subtitle {
+    font-size: clamp(20px, 6vw, 40px); /* Further reduce subtitle font size */
   }
   .game-explanation {
     font-size: clamp(12px, 3vw, 16px); /* Further reduce explanation font size */
