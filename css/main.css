@@ -233,10 +233,10 @@ body {
 }
 
 /* Tile specific images and text colors */
-/* IMPORTANT: Paths changed to use '../Images/' because main.css is in a 'css' subfolder */
+/* IMPORTANT: Don't forget to match extentions if applicable when swapping images */
 .tile-2 { background-image: url('../Images/tile-2.gif'); }
 .tile-4 { background-image: url('../Images/tile-4.gif'); }
-.tile-8 { background-image: url('../Images/tile-8.webp'); } /* Note: tile-8 is webp */
+.tile-8 { background-image: url('../Images/tile-8.webp'); }
 .tile-16 { background-image: url('../Images/tile-16.gif'); }
 .tile-32 { background-image: url('../Images/tile-32.gif'); }
 .tile-64 { background-image: url('../Images/tile-64.gif'); }
